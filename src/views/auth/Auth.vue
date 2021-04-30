@@ -5,8 +5,8 @@
         LUCA
       </span>
       <form class="auth__form" @submit.prevent="login">
-        <input type="text" class="auth__input luca-input" name="login" placeholder="Login" v-model="name" />
-        <input type="password" class="auth__input luca-input" name="pass" placeholder="Password" v-model="pass" />
+        <input type="text" class="auth__input luca-input" name="login" placeholder="Login" v-model="name" autocomplete="on"/>
+        <input type="password" class="auth__input luca-input" name="pass" placeholder="Password" v-model="pass" autocomplete="on" />
         <div class="auth__error">{{ errText }}</div>
         <input type="submit" class="auth__submit" v-bind:value="curActionName" />
       </form>
