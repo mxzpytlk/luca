@@ -7,13 +7,17 @@
       <form class="auth__form" @submit.prevent="login">
         <input type="text" class="auth__input luca-input" name="login" placeholder="Login" v-model="name" />
         <input type="password" class="auth__input luca-input" name="pass" placeholder="Password" v-model="pass" />
-        <input type="submit" class="auth__submit" value="entry" />
+        <input type="submit" class="auth__submit" v-bind:value="curActionName" />
       </form>
+      <router-link v-bind:to="`${otherActionName}`" custom >
+        {{ otherActionName }}
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
+import { RouterPath } from '@/core/enums/router-path';
 import './auth.scss';
 
 export default {
@@ -23,18 +27,31 @@ export default {
       pass: '',
     };
   },
+  computed: {
+    isPathRegister() {
+      return this.$route.path === RouterPath.REGISTER;
+    },
+    curActionName() {
+      return this.isPathRegister ? 'register' : 'entry';
+    },
+    otherActionName() {
+      return this.isPathRegister ? 'entry' : 'register';
+    },
+  },
   methods: {
     login() {
+      const path = this.$route.path;
+
+      const loginAction = path === RouterPath.REGISTER ? 'register' : 'login';
+
       const data = {
         name: this.name,
         pass: this.pass,
       };
 
-
-
       this.$store
-        .dispatch('login', data)
-        .then(() => this.$router.push('/'))
+        .dispatch(loginAction, data)
+        .then(() => this.$router.push(RouterPath.MAIN))
         // tslint:disable-next-line: no-console
         .catch((err) => console.log(err));
     },

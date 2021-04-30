@@ -27,7 +27,8 @@ export default new Vuex.Store({
   },
   actions: {
     login({commit}, loginData) {
-      return new Promise(() => {
+      // TODO Make login by connection with server
+      return new Promise((resolve) => {
         const { name, pass } = loginData;
         let token;
         if (name === 'z1' && pass === '1') {
@@ -35,6 +36,13 @@ export default new Vuex.Store({
           localStorage.setItem(LocalStorageKey.TOKEN, token);
         }
         commit('auth_success', {token: 'TODO'});
+        resolve(null);
+      });
+    },
+    register({commit}, registerData) {
+      return new Promise((resolve) => {
+        // TODO
+        resolve(null);
       });
     },
   },

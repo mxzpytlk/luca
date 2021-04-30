@@ -1,4 +1,6 @@
 export enum RouterPath {
-  DEFAULT = '/*',
+  DEFAULT = '/',
   AUTH = '/auth',
+  REGISTER = '/register',
+  MAIN = '/main',
 }

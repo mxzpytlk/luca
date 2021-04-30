@@ -11,14 +11,12 @@ const routes: RouteConfig[] = [
     component: () => import('../views/auth/Auth.vue'),
   },
   {
-    path: '/login',
-    component: {
-      render: (h) => h('div', ['Board Page', h('router-view')]),
-    },
+    path: RouterPath.MAIN,
+    component: () => import('../views/luca-container/LucaContainer.vue'),
   },
   {
-    path: RouterPath.DEFAULT,
-    component: () => import('../views/auth/Auth.vue'),
+    path: '*',
+    component: () => store.getters.isLoggedIn ? import('../views/luca-container/LucaContainer.vue') : import('../views/auth/Auth.vue'),
   },
 ];
 
@@ -30,12 +28,17 @@ const router = new VueRouter({
 
 router.beforeEach((to, from , next) => {
   const path = to.path;
-  if (path !== RouterPath.AUTH) {
-    if (store.getters.isLoggedIn) {
+  const loginPath = [RouterPath.AUTH, RouterPath.REGISTER];
+  const isLoggedIn = store.getters.isLoggedIn;
+
+  if (!loginPath.some((item) => item === path)) {
+    if (isLoggedIn) {
       next();
     } else {
       next(RouterPath.AUTH);
     }
+  } else if (isLoggedIn) {
+    next(RouterPath.MAIN);
   }
   next();
 });
