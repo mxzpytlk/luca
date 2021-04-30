@@ -7,9 +7,10 @@
       <form class="auth__form" @submit.prevent="login">
         <input type="text" class="auth__input luca-input" name="login" placeholder="Login" v-model="name" />
         <input type="password" class="auth__input luca-input" name="pass" placeholder="Password" v-model="pass" />
+        <div class="auth__error">{{ errText }}</div>
         <input type="submit" class="auth__submit" v-bind:value="curActionName" />
       </form>
-      <router-link v-bind:to="`${otherActionName}`" custom >
+      <router-link v-bind:to="`${otherActionName}`" custom class="auth__link-base auth__link-dotted">
         {{ otherActionName }}
       </router-link>
     </div>
@@ -25,6 +26,7 @@ export default {
     return {
       name: '',
       pass: '',
+      errText: '',
     };
   },
   computed: {
@@ -51,9 +53,20 @@ export default {
 
       this.$store
         .dispatch(loginAction, data)
-        .then(() => this.$router.push(RouterPath.MAIN))
+        .then(() => {
+          this.$router.push(this.isPathRegister ? RouterPath.AUTH : RouterPath.MAIN);
+          this.name = '';
+          this.pass = '';
+          this.errText = '';
+        })
         // tslint:disable-next-line: no-console
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          this.errText = err.message;
+          // tslint:disable-next-line: no-console
+          console.trace();
+          // tslint:disable-next-line: no-console
+          console.error(err);
+        });
     },
   },
 };

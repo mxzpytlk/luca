@@ -23,29 +23,38 @@ export default new Vuex.Store({
   },
   getters: {
     isLoggedIn: (state) => !!state.token,
-    authStatus: (state) => state.status,
+    authStatus: (state) => state.statusб,
   },
   actions: {
-    login({commit}, loginData) {
+    login({ commit }, loginData) {
       // TODO Make login by connection with server
       return new Promise((resolve) => {
         const { name, pass } = loginData;
         let token;
+        if (!name || !pass) {
+          throw new Error('Name and password can\'t be empty');
+        }
+
         if (name === 'z1' && pass === '1') {
           token = 'TODO';
           localStorage.setItem(LocalStorageKey.TOKEN, token);
+          commit('auth_success', { token: 'TODO' });
+        } else {
+          throw new Error('Login or password is incorrect');
         }
-        commit('auth_success', {token: 'TODO'});
         resolve(null);
       });
     },
-    register({commit}, registerData) {
+    register({ commit }, registerData) {
       return new Promise((resolve) => {
+        const { name, pass } = registerData;
+        if (!name || !pass) {
+          throw new Error('Name and password can\'t be empty');
+        }
         // TODO
         resolve(null);
       });
     },
   },
-  modules: {
-  },
+  modules: {},
 });

@@ -1,3 +1,5 @@
+@import '../../styles/color';
+
 .container {
   display: flex;
   justify-content: center;
@@ -16,7 +18,7 @@
   border-radius: 3px;
   box-shadow: 0 1px 3px rgb(0, 0, 0);
   padding-top: 30px;
-  padding-bottom: 15px;
+  padding-bottom: 30px;
 
   &__logo {
     font-size: 39px;
@@ -47,5 +49,45 @@
     color: #ffffff;
     border-radius: 10px;
     cursor: pointer;;
+  }
+
+  &__link {
+    &-base {
+      color: $faded-blue;
+      border-radius: 0;
+      border: none;
+      line-height: 1.2;
+      cursor: pointer;
+      margin-top: 20px;
+  
+      &:hover {
+        color: $light-navy-blue;
+      }
+    }
+  
+    &-dotted {
+      border-bottom: 1px dotted $faded-blue;
+    }
+  
+    &-underline {
+      border-bottom: 1px solid $faded-blue;
+    }
+  
+    &-dotted,
+    &-underline {
+      &:hover {
+        border-bottom-color: $light-navy-blue;
+      }
+    }
+  }
+
+  &__error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 12px;
+    text-align: center;
+    color: $pinkish-red;
   }
 }
