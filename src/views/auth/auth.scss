@@ -20,17 +20,28 @@
   padding-top: 30px;
   padding-bottom: 30px;
 
-  &__logo {
-    font-size: 39px;
-    font-weight: bold;
-  }
-
   &__form {
     width: 85%;
   }
 
   &__input {
+    position: relative;
     margin-top: 10px;
+  }
+
+  &__icon {
+    &_eye {
+      color: rgb(63, 63, 63);
+      opacity: .5;
+      position: absolute;
+      right: 5%;
+      bottom: 30%;
+      cursor: pointer;
+
+      &:hover {
+        opacity: .8;
+      }
+    }
   }
 
   &__submit {

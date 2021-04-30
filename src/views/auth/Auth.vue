@@ -5,8 +5,18 @@
         LUCA
       </span>
       <form class="auth__form" @submit.prevent="login">
-        <input type="text" class="auth__input luca-input" name="login" placeholder="Login" v-model="name" autocomplete="on"/>
-        <input type="password" class="auth__input luca-input" name="pass" placeholder="Password" v-model="pass" autocomplete="on" />
+        <input type="text" class="auth__input luca-input" name="login" placeholder="Login" v-model="name" autocomplete="on" />
+        <div class="auth__input" :key="key">
+          <input
+            v-bind:type="isPassVisible ? 'text' : 'password'"
+            class="auth__input luca-input"
+            name="pass"
+            placeholder="Password"
+            v-model="pass"
+            autocomplete="new-password"
+          />
+          <font-awesome-icon icon="eye" class="auth__icon_eye" @click.prevent="changePassVisibility"/>
+        </div>
         <div class="auth__error">{{ errText }}</div>
         <input type="submit" class="auth__submit" v-bind:value="curActionName" />
       </form>
@@ -27,6 +37,7 @@ export default {
       name: '',
       pass: '',
       errText: '',
+      key: 0,
     };
   },
   computed: {
@@ -49,6 +60,7 @@ export default {
       const data = {
         name: this.name,
         pass: this.pass,
+        isPassVisible: false,
       };
 
       this.$store
@@ -67,6 +79,10 @@ export default {
           // tslint:disable-next-line: no-console
           console.error(err);
         });
+    },
+    changePassVisibility() {
+      this.isPassVisible = !this.isPassVisible;
+      this.key += 1;
     },
   },
 };

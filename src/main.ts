@@ -4,6 +4,15 @@ import './registerServiceWorker';
 import router from './router';
 import store from './store';
 import Axios from 'axios';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faFontAwesome } from '@fortawesome/free-brands-svg-icons';
+
+library.add(faFontAwesome);
+library.add(faEye);
+
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 
