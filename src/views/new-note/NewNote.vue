@@ -5,6 +5,12 @@
       <textarea name="text" class="luca-input form__text" placeholder="Write record" v-model="text" required/>
       <vueye-datepicker v-model="date" color="#4466ee" format="yyyy-mm-dd" />
       <input type="submit" value="Add note" class="form__btn">
+      <font-awesome-icon
+        icon="window-close"
+        size="2x"
+        class="form__close"
+        @click.prevent="closeForm"
+      />
     </form>
   </div>
 </template>
@@ -34,6 +40,9 @@ export default {
       await this.$store.dispatch('addRecord', { record, title: this.title });
       this.title = '';
       this.text = '';
+    },
+    closeForm() {
+      this.$router.push('/main');
     },
   },
   async mounted() {

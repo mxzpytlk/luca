@@ -5,7 +5,7 @@ import router from './router';
 import store from './store';
 import Axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faBars, faEye, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faEye, faCaretDown, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faFontAwesome } from '@fortawesome/free-brands-svg-icons';
 import VueComp from '@vue/composition-api';
@@ -14,6 +14,7 @@ library.add(faBars);
 library.add(faFontAwesome);
 library.add(faEye);
 library.add(faCaretDown);
+library.add(faWindowClose);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
