@@ -13,6 +13,8 @@ const routes: RouteConfig[] = [
   {
     path: RouterPath.MAIN,
     component: () => import('../views/luca-container/LucaContainer.vue'),
+    children: [
+    ],
   },
   {
     path: '*',

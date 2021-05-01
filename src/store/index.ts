@@ -1,6 +1,7 @@
 import { LocalStorageKey } from '@/core/enums/local-storage-key';
 import Vue from 'vue';
 import Vuex from 'vuex';
+import sector from './modules/sector';
 
 Vue.use(Vuex);
 
@@ -56,5 +57,5 @@ export default new Vuex.Store({
       });
     },
   },
-  modules: {},
+  modules: { sector },
 });

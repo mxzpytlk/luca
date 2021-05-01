@@ -1,0 +1,7 @@
+@import '../../styles/sizes';
+
+.workspace {
+  height: calc(100% - #{$navbar-height});
+  width: 100%;
+  display: flex;
+}

@@ -1,11 +1,11 @@
 import { RouterPath } from '../enums/router-path';
 
-export interface RouterViewPath {
+export interface IRouterViewPath {
   name: string;
   path: RouterPath;
 }
 
-export const viewPath: RouterViewPath[] = [
+export const viewPath: IRouterViewPath[] = [
   {
     name: 'Add note',
     path: RouterPath.MAIN,
