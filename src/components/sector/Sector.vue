@@ -42,7 +42,7 @@ export default {
   methods: {
     isRecordActive(record: IRecord) {
       return new Date().toDateString() === record?.executionEnd?.toDateString();
-    }
+    },
   },
   props: ['sector'],
 };

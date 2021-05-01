@@ -3,12 +3,14 @@ import { RouterPath } from '../enums/router-path';
 export interface IRouterViewPath {
   name: string;
   path: RouterPath;
+  fullPath?: RouterPath[];
 }
 
 export const viewPath: IRouterViewPath[] = [
   {
     name: 'Add note',
-    path: RouterPath.MAIN,
+    path: RouterPath.NEW_NOTE,
+    fullPath: [RouterPath.MAIN, RouterPath.NEW_NOTE],
   },
   {
     name: 'Main',

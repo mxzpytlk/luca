@@ -14,6 +14,10 @@ const routes: RouteConfig[] = [
     path: RouterPath.MAIN,
     component: () => import('../views/luca-container/LucaContainer.vue'),
     children: [
+      {
+        path: RouterPath.NEW_NOTE,
+        component: () => import('../views/new-note/NewNote.vue'),
+      },
     ],
   },
   {

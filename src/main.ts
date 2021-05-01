@@ -8,6 +8,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faBars, faEye, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faFontAwesome } from '@fortawesome/free-brands-svg-icons';
+import VueComp from '@vue/composition-api';
 
 library.add(faBars);
 library.add(faFontAwesome);
@@ -29,5 +30,7 @@ const token = localStorage.getItem('token');
 if (token) {
   Vue.prototype.$http.defaults.headers.common.Authorization = token;
 }
+
+Vue.use(VueComp);
 
 Vue.filter('date', (date: Date) => date?.toISOString().slice(0, 10));

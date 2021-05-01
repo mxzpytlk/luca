@@ -1,4 +1,5 @@
 import { LocalStorageKey } from '@/core/enums/local-storage-key';
+import { setInLocalStorage } from '@/core/utills/local-storage.utills';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import sector from './modules/sector';
@@ -24,7 +25,7 @@ export default new Vuex.Store({
   },
   getters: {
     isLoggedIn: (state) => !!state.token,
-    authStatus: (state) => state.statusб,
+    authStatus: (state) => state.status,
   },
   actions: {
     login({ commit }, loginData) {
@@ -38,7 +39,7 @@ export default new Vuex.Store({
 
         if (name === 'z1' && pass === '1') {
           token = 'TODO';
-          localStorage.setItem(LocalStorageKey.TOKEN, token);
+          setInLocalStorage(LocalStorageKey.TOKEN, token);
           commit('auth_success', { token: 'TODO' });
         } else {
           throw new Error('Login or password is incorrect');
@@ -46,7 +47,7 @@ export default new Vuex.Store({
         resolve(null);
       });
     },
-    register({ commit }, registerData) {
+    register({ }, registerData) {
       return new Promise((resolve) => {
         const { name, pass } = registerData;
         if (!name || !pass) {

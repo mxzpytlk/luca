@@ -4,4 +4,5 @@ export enum RouterPath {
   REGISTER = '/register',
   MAIN = '/main',
   WORKSPACE = 'workspace',
+  NEW_NOTE = 'new',
 }
