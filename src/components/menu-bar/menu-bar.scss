@@ -1,0 +1,26 @@
+@import '../../styles/color';
+
+.menu-bar {
+  width: 200px;
+  background-color: white;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 0 0 4px 4px;
+  z-index: 5;
+
+  &__link {
+    color: $brownish-grey;
+    width: 100%;
+    font-size: 1.3em;
+    padding: 5px 10px;
+
+    &:hover {
+      background-color: $light-grey;
+      color: $black;
+    }
+  }
+}
+
+
