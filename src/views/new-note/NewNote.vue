@@ -45,9 +45,6 @@ export default {
       this.$router.push('/main');
     },
   },
-  async mounted() {
-    await this.$store.dispatch('updateRecords');
-  },
   components: { VueyeDatepicker },
 };
 </script>

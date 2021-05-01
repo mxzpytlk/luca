@@ -54,10 +54,14 @@
       padding-top: 10px;
       padding-left: 10px;
       color: $brownish-grey;
+      height: 35px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     &_date {
-      width: 110px;
+      min-width: 110px;
+      margin-left: 10px;
       color: $brownish-grey;
     }
 

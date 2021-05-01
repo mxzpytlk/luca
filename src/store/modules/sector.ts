@@ -34,6 +34,11 @@ export default {
       }
       state.sectors = sectors;
     },
+    removeSectors(state: any, removingSectors: ISector[]) {
+      const removeIds = new Set(removingSectors.map((sector) => sector.id));
+      state.sectors = state.sectors.filter((sector: ISector) => !removeIds.has(sector.id));
+      setInLocalStorage(LocalStorageKey.SECTORS, state.sectors);
+    },
   },
   getters: {
     sectors: (state: any): ISector[] => state.sectors,
@@ -41,6 +46,9 @@ export default {
   actions: {
     async addRecord({ commit }: any, data: { record: IRecord, title: string }) {
       commit('pushRecord', data);
+    },
+    async deleteSectors({ commit }: any,  sectors: ISector[]) {
+      commit('removeSectors', sectors);
     },
     async updateRecords({commit}: any) {
       commit('loadRecords');

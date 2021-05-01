@@ -18,6 +18,10 @@ const routes: RouteConfig[] = [
         path: RouterPath.NEW_NOTE,
         component: () => import('../views/new-note/NewNote.vue'),
       },
+      {
+        path: RouterPath.DELETE_SECTOR,
+        component: () => import('../views/delete-sector/DeleteSector.vue'),
+      },
     ],
   },
   {

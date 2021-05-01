@@ -22,7 +22,8 @@ export const viewPath: IRouterViewPath[] = [
   },
   {
     name: 'Delete sector',
-    path: RouterPath.MAIN,
+    path: RouterPath.DELETE_SECTOR,
+    fullPath: [RouterPath.MAIN, RouterPath.DELETE_SECTOR],
   },
   {
     name: 'Acount',
