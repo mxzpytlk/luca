@@ -1,7 +1,9 @@
 <template>
   <div class="workspace">
-    <band v-if="isBand"/>
-    <router-view />
+    <a href="#left"></a>
+    <band id="left"/>
+    <a href="#right"></a>
+    <router-view id="right"/>
     <acount />
   </div>
 </template>

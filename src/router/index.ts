@@ -30,6 +30,18 @@ const routes: RouteConfig[] = [
         path: RouterPath.EDIT,
         component: () => import('../views/edit-page/EditPage.vue'),
       },
+      {
+        path: RouterPath.PLAN,
+        component: () => import('../views/day-plan/DayPlan.vue'),
+      },
+      {
+        path: '*',
+        component: () => import('../views/day-plan/DayPlan.vue'),
+      },
+      {
+        path: '',
+        component: () => import('../views/day-plan/DayPlan.vue'),
+      },
     ],
   },
   {

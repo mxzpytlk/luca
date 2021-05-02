@@ -1,6 +1,7 @@
 import { LocalStorageKey } from '@/core/enums/local-storage-key';
 import { IRecord } from '@/core/interfaces/record';
 import { ISector } from '@/core/interfaces/sector.interface';
+import { flatArr } from '@/core/utills/array.utills';
 import { getFromLocalStorage, setInLocalStorage } from '@/core/utills/local-storage.utills';
 import { generateId } from '@/core/utills/random.utills';
 
@@ -58,6 +59,13 @@ export default {
   },
   getters: {
     sectors: (state: any): ISector[] => state.sectors,
+
+    todayRecords(state: any) {
+      const records = flatArr((state.sectors as ISector[]).map((sector) => sector.records));
+      return records.filter((recors) => recors.executionDate?.toDateString() === new Date().toDateString());
+    },
+
+
     record(state: any): (id: string) => IRecord {
       return (id: string) => {
         for (const sector of state.sectors) {
@@ -69,6 +77,8 @@ export default {
         }
       };
     },
+
+
     sectorTitle(state: any): (recordId: string) => IRecord {
       return (recordId: string) => {
         for (const sector of state.sectors) {
@@ -80,6 +90,8 @@ export default {
         }
       };
     },
+
+
   },
   actions: {
     async addRecord({ commit }: any, data: { record: IRecord, title: string }) {

@@ -52,7 +52,7 @@
 
 @media (max-width: $max-width-mobile) {
   .edit {
-    width: 100%;
+    min-width: 100%;
 
     &__form {
       width: 100%;

@@ -1,7 +1,15 @@
-@import '../../styles/sizes';
+@import '../../styles/variables';
 
 .workspace {
   height: calc(100% - #{$navbar-height});
   width: 100%;
   display: flex;
+}
+
+@media (max-width: $max-width-mobile) {
+  .workspace {
+    width: 100%;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+  }
 }

@@ -8,4 +8,5 @@ export enum RouterPath {
   DELETE_SECTOR = 'delete',
   ACOUNT = 'acount',
   EDIT = 'edit/:id',
+  PLAN = 'plan',
 }

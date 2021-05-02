@@ -17,6 +17,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "current-device": "^0.10.2",
+    "k-progress": "^1.5.0",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
