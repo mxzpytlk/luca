@@ -6,4 +6,5 @@ export enum RouterPath {
   WORKSPACE = 'workspace',
   NEW_NOTE = 'new',
   DELETE_SECTOR = 'delete',
+  ACOUNT = 'acount',
 }

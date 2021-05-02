@@ -1,0 +1,38 @@
+@import '../../styles/color';
+
+$acount-width: 450px;
+
+.acount {
+  height: 100%;
+  width: $acount-width;
+  background-color: $black;
+  position: absolute;
+  z-index: 20;
+  right: calc(-#{$acount-width});
+  transition: right .5s ease-in;
+
+  &__active {
+    right: 0;
+  }
+
+  &__icon {
+    &_right {
+      background-color: white;
+      border-radius: 50%;
+      position: relative;
+      left: calc(100% - 70px);
+      top: 10px;
+      cursor: pointer;
+    }
+
+    &_out {
+      color: white;
+      background-color: $azure;
+      border-radius: 6px;
+      position: relative;
+      left: calc(100% - 127px);
+      top: calc(100% - 135px);
+      cursor: pointer;
+    }
+  }
+}

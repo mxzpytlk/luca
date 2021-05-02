@@ -27,6 +27,7 @@ export const viewPath: IRouterViewPath[] = [
   },
   {
     name: 'Acount',
-    path: RouterPath.MAIN,
+    path: RouterPath.ACOUNT,
+    fullPath: [RouterPath.MAIN, RouterPath.ACOUNT],
   },
 ];
