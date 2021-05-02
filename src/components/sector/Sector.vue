@@ -22,7 +22,7 @@
           {{ record.text }}
         </span>
         <span class="sector__record_date">
-          {{ record.executionEnd | date }}
+          {{ record.executionDate | date }}
         </span>
       </div>
     </div>
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     isRecordActive(record: IRecord) {
-      return new Date().toDateString() === record?.executionEnd?.toDateString();
+      return new Date().toDateString() === record?.executionDate?.toDateString();
     },
   },
   props: ['sector'],

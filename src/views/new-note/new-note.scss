@@ -33,6 +33,16 @@
     cursor: pointer;
   }
 
+  &__time {
+    margin-top: 10px;
+    width: 80%;
+    color: rgb(71, 71, 71);
+
+    &_input {
+      width: 280px;
+    }
+  }
+
   &__close {
     position: absolute;
     right: 10px;

@@ -27,8 +27,8 @@ export default {
       const sectors: ISector[] = getFromLocalStorage(LocalStorageKey.SECTORS) || [];
       for (const sector of sectors) {
         for (const record of sector.records) {
-          if (!!record.executionEnd) {
-            record.executionEnd = new Date(record.executionEnd);
+          if (!!record.executionDate) {
+            record.executionDate = new Date(record.executionDate);
           }
         }
       }

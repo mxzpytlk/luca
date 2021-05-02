@@ -31,8 +31,17 @@ if (token) {
 Vue.use(VueComp);
 
 Vue.filter('date', (date: Date) => {
+  if (!date) {
+    return null;
+  }
   const year = date.getFullYear();
   const month = `0${date.getMonth() + 1}`.slice(-2);
   const day = `0${date.getDate()}`.slice(-2);
   return `${year}-${month}-${day}`;
+});
+
+Vue.filter('time', (time: number) => {
+  const hours = Math.trunc(time);
+  const minutes = Math.round((time - hours) * 60);
+  return (!!hours ? `${hours}h ` : '') + (!!minutes ? `${minutes}m` : '');
 });

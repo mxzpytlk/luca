@@ -3,6 +3,15 @@
     <form class="form" @submit.prevent="addRecord">
       <input type="text" name="title" class="luca-input" placeholder="Write sector title" v-model="title" required>
       <vueye-datepicker v-model="date" color="#4466ee" format="yyyy-mm-dd" />
+      <div class="form__time">
+        <label for="plan">
+          Planed time
+        </label>
+        <input type="range" name="plan" min="0" max="10" step="0.25" v-model="planedTime" class="form__time_input">
+        <span>
+          {{ planedTime | time}}
+        </span>
+      </div>
       <textarea name="text" class="luca-input form__text" placeholder="Write record" v-model="text" required/>
       <input type="submit" value="Add note" class="form__btn">
       <font-awesome-icon
@@ -28,6 +37,7 @@ export default {
       title: '',
       text: '',
       date: new Date(),
+      planedTime: 0,
     };
   },
   methods: {
@@ -35,7 +45,8 @@ export default {
       const record = {
         id: generateId(),
         text: this.text,
-        executionEnd: this.date.value,
+        executionDate: this.date.value,
+        executionPlanTime: this.planedTime,
       };
       await this.$store.dispatch('addRecord', { record, title: this.title });
       this.title = '';
