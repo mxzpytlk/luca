@@ -39,6 +39,17 @@ export default {
       state.sectors = state.sectors.filter((sector: ISector) => !removeIds.has(sector.id));
       setInLocalStorage(LocalStorageKey.SECTORS, state.sectors);
     },
+    removeRecord(state: any, record: IRecord) {
+      const sectors: ISector[] = state.sectors;
+      const curSectorIdx = sectors.findIndex((sector) => sector.records.find((item) => item.id === record.id));
+      const curSector = sectors[curSectorIdx];
+      const curRecordIdx = curSector.records.findIndex((item) => item.id === record.id);
+      curSector.records.splice(curRecordIdx, 1);
+      if (curSector.records.length === 0) {
+        sectors.splice(curSectorIdx, 1);
+      }
+      setInLocalStorage(LocalStorageKey.SECTORS, state.sectors);
+    },
   },
   getters: {
     sectors: (state: any): ISector[] => state.sectors,
@@ -52,6 +63,9 @@ export default {
     },
     async updateRecords({commit}: any) {
       commit('loadRecords');
+    },
+    async removeRecord({commit}: any, record: IRecord) {
+      commit('removeRecord', record);
     },
   },
 };

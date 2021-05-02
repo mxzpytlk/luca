@@ -45,6 +45,7 @@
   }
 
   &__record {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -63,6 +64,32 @@
       min-width: 110px;
       margin-left: 10px;
       color: $brownish-grey;
+    }
+
+    &_menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: white;
+      width: 150px;
+      z-index: 10;
+      color: $brownish-grey;
+      text-align: center;
+      border: 1px $black solid;
+      border-top: none;
+    }
+
+    &_btn {
+      font-size: 1.2em;
+      line-height: 1.6em;
+
+      &:hover {
+        background-color: $light-grey;
+      }
+    }
+
+    &_delete {
+      color: red;
     }
 
     &_active {
