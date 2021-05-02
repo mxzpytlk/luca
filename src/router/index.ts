@@ -11,6 +11,10 @@ const routes: RouteConfig[] = [
     component: () => import('../views/auth/Auth.vue'),
   },
   {
+    path: RouterPath.REGISTER,
+    component: () => import('../views/auth/Auth.vue'),
+  },
+  {
     path: RouterPath.MAIN,
     component: () => import('../views/luca-container/LucaContainer.vue'),
     children: [

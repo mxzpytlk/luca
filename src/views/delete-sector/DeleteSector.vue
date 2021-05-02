@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="delete__container">
     <form class="delete__form" :key="key" @submit.prevent="deleteSectors">
       <span
         v-for="sector in sectors"

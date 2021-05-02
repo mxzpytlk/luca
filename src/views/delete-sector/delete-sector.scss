@@ -1,21 +1,26 @@
-@import '../../styles/color';
+@import '../../styles/variables';
 
-.container {
-  height: 100%;
-  width: 70%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 
 .delete {
+  &__container {
+    height: 100%;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__form {
-    min-width: 400px;
+    min-width: 375px;
+    width: 400px;
     background-color: white;
     border-radius: 3px;
     box-shadow: 4px 4px 20px 9px rgba(0, 0, 0, 0.36);
     display: flex;
     flex-direction: column;
+    max-height: 100%;
+    overflow-y: auto;
   }
 
   &__item {
@@ -36,7 +41,7 @@
 
   &__btn {
     width: 100%;
-    height: 50px;
+    min-height: 50px;
     cursor: pointer;
     background-color: rgb(255, 93, 93);
     font-size: 1.3em;
@@ -46,5 +51,11 @@
     &:hover {
       background-color: rgba(255, 93, 93, 0.9);
     }
+  }
+}
+
+@media (max-width: $max-width-mobile) {
+  .delete__container {
+    width: 100%;
   }
 }

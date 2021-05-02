@@ -3970,6 +3970,11 @@
   dependencies:
     "css-tree" "^1.1.2"
 
+"current-device@^0.10.2":
+  "integrity" "sha512-FN223n2Cp1fRI/gyjJEAdagHhJ/2Z2STz3tUg1t4F259BhmVRCChkmxcgFtjYJsWuIacQEs7bqJpnAczIXIkWw=="
+  "resolved" "https://registry.npmjs.org/current-device/-/current-device-0.10.2.tgz"
+  "version" "0.10.2"
+
 "currently-unhandled@^0.4.1":
   "integrity" "sha1-mI3zP+qxke95mmE2nddsF635V+o="
   "resolved" "https://registry.npmjs.org/currently-unhandled/-/currently-unhandled-0.4.1.tgz"

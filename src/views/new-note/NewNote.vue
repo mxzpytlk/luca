@@ -2,8 +2,8 @@
   <div class="container">
     <form class="form" @submit.prevent="addRecord">
       <input type="text" name="title" class="luca-input" placeholder="Write sector title" v-model="title" required>
-      <textarea name="text" class="luca-input form__text" placeholder="Write record" v-model="text" required/>
       <vueye-datepicker v-model="date" color="#4466ee" format="yyyy-mm-dd" />
+      <textarea name="text" class="luca-input form__text" placeholder="Write record" v-model="text" required/>
       <input type="submit" value="Add note" class="form__btn">
       <font-awesome-icon
         icon="window-close"

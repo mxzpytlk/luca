@@ -45,6 +45,7 @@ export default {
       // TODO
     },
     async logout({ commit }: any) {
+      localStorage.removeItem(LocalStorageKey.TOKEN);
       commit('logout');
     },
   },

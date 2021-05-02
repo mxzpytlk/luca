@@ -1,4 +1,4 @@
-@import '../../styles/color';
+@import '../../styles/variables';
 
 .sector {
   display: flex;
@@ -73,5 +73,11 @@
   &__container {
     display: flex;
     flex-direction: column;
+  }
+}
+
+@media (max-width: $max-width-mobile) {
+  .sector {
+    margin: 10px 3%;
   }
 }
