@@ -3,4 +3,5 @@ export interface IRecord {
   text: string;
   executionDate?: Date;
   executionPlanTime?: number;
+  executionTime?: number;
 }

@@ -11208,6 +11208,11 @@
   "resolved" "https://registry.npmjs.org/vue-property-decorator/-/vue-property-decorator-9.1.2.tgz"
   "version" "9.1.2"
 
+"vue-range-component@^1.0.3":
+  "integrity" "sha512-J/rE7KJa61XsLXREvSw0Ia+dSTaLoP5Ou7NfOy5pm/1FMgYn7E14iQj7baA8H4ZxoIuKuCfrhjWglPHtWUPGmg=="
+  "resolved" "https://registry.npmjs.org/vue-range-component/-/vue-range-component-1.0.3.tgz"
+  "version" "1.0.3"
+
 "vue-router@^3.2.0":
   "integrity" "sha512-RRQNLT8Mzr8z7eL4p7BtKvRaTSGdCbTy2+Mm5HTJvLGYSSeG9gDzNasJPP/yOYKLy+/cLG/ftrqq5fvkFwBJEw=="
   "resolved" "https://registry.npmjs.org/vue-router/-/vue-router-3.5.1.tgz"

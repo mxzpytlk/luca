@@ -1,0 +1,62 @@
+@import '../../styles/variables';
+
+.edit {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+
+  &__form {
+    height: 100%;
+    width: 70%;
+    background-color: white;
+    box-shadow: 4px 4px 20px 9px rgba(0, 0, 0, 0.36);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+  }
+
+  &__text {
+    min-height: 20px;
+    font-size: 1.3em;
+    height: 60%;
+    width: 70%;
+    overflow-y: auto;
+    outline: none;
+    border: none;
+  }
+
+  &__btn {
+    color: white;
+    background-color: $azure;
+    border-radius: 5px;
+    font-size: 1.1em;
+    border-width: 0;
+    height: 40px;
+    margin-bottom: 50px;
+    width: 150px;
+    cursor: pointer;
+  }
+
+  &__close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    background-color: $brownish-grey;
+    color: white;
+  }
+}
+
+@media (max-width: $max-width-mobile) {
+  .edit {
+    width: 100%;
+
+    &__form {
+      width: 100%;
+      padding: 50px 20px;
+    }
+  }
+}

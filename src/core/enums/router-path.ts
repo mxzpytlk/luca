@@ -7,4 +7,5 @@ export enum RouterPath {
   NEW_NOTE = 'new',
   DELETE_SECTOR = 'delete',
   ACOUNT = 'acount',
+  EDIT = 'edit/:id',
 }

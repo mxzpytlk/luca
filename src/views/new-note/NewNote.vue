@@ -7,10 +7,12 @@
         <label for="plan">
           Planed time
         </label>
-        <input type="range" name="plan" min="0" max="10" step="0.25" v-model="planedTime" class="form__time_input">
-        <span>
-          {{ planedTime | time}}
-        </span>
+        <div>
+          <input type="range" name="plan" min="0" max="10" step="0.25" v-model="planedTime" class="form__time_input">
+          <span>
+            {{ planedTime | time}}
+          </span>
+        </div>
       </div>
       <textarea name="text" class="luca-input form__text" placeholder="Write record" v-model="text" required/>
       <input type="submit" value="Add note" class="form__btn">

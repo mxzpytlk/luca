@@ -26,6 +26,10 @@ const routes: RouteConfig[] = [
         path: RouterPath.DELETE_SECTOR,
         component: () => import('../views/delete-sector/DeleteSector.vue'),
       },
+      {
+        path: RouterPath.EDIT,
+        component: () => import('../views/edit-page/EditPage.vue'),
+      },
     ],
   },
   {

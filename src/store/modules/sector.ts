@@ -13,7 +13,12 @@ export default {
       const sectors = (state.sectors as ISector[]);
       const curSector = sectors.find((item) => item.title === data.title);
       if (curSector) {
-        curSector.records.push(data.record);
+        const curRecordIdx = curSector.records.findIndex((item) => item.id === data.record.id);
+        if (curRecordIdx >= 0) {
+          curSector.records[curRecordIdx] = data.record;
+        } else {
+          curSector.records.push(data.record);
+        }
       } else {
         sectors.push({
           title: data.title,
@@ -53,6 +58,28 @@ export default {
   },
   getters: {
     sectors: (state: any): ISector[] => state.sectors,
+    record(state: any): (id: string) => IRecord {
+      return (id: string) => {
+        for (const sector of state.sectors) {
+          for (const record of sector.records) {
+            if (id === record.id) {
+              return record;
+            }
+          }
+        }
+      };
+    },
+    sectorTitle(state: any): (recordId: string) => IRecord {
+      return (recordId: string) => {
+        for (const sector of state.sectors) {
+          for (const record of sector.records) {
+            if (recordId === record.id) {
+              return sector.title;
+            }
+          }
+        }
+      };
+    },
   },
   actions: {
     async addRecord({ commit }: any, data: { record: IRecord, title: string }) {
