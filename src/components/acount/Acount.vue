@@ -10,6 +10,7 @@
       icon="sign-out-alt"
       size="3x"
       class="acount__icon_out"
+      @click.prevent="logout"
     />
   </div>
 </template>
@@ -27,6 +28,12 @@ export default {
   methods: {
     close() {
       this.$router.push(RouterPath.MAIN);
+    },
+    async logout() {
+      if (confirm('Are you sure you want to leave your acount')) {
+        await this.$store.dispatch('logout');
+        this.$router.push(RouterPath.AUTH);
+      }
     },
   },
 };

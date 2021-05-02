@@ -11,9 +11,6 @@ export default {
       state.status = 'success';
       state.token = auth.token;
     },
-    auth_error(state: any) {
-      state.status = 'error';
-    },
     logout(state: any) {
       state.status = '';
       state.token = '';
@@ -46,6 +43,9 @@ export default {
         throw new Error('Name and password can\'t be empty');
       }
       // TODO
+    },
+    async logout({ commit }: any) {
+      commit('logout');
     },
   },
 };
