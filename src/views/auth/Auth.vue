@@ -38,6 +38,7 @@ export default {
       pass: '',
       errText: '',
       key: 0,
+      isPassVisible: false,
     };
   },
   computed: {
@@ -54,31 +55,29 @@ export default {
   methods: {
     login() {
       const path = this.$route.path;
-
       const loginAction = path === RouterPath.REGISTER ? 'register' : 'login';
 
       const data = {
         name: this.name,
         pass: this.pass,
-        isPassVisible: false,
       };
 
       this.$store
-        .dispatch(loginAction, data)
-        .then(() => {
-          this.$router.push(this.isPathRegister ? RouterPath.AUTH : RouterPath.MAIN);
-          this.name = '';
-          this.pass = '';
-          this.errText = '';
-        })
+      .dispatch(loginAction, data)
+      .then(() => {
+        this.$router.push(this.isPathRegister ? RouterPath.AUTH : RouterPath.MAIN);
+        this.name = '';
+        this.pass = '';
+        this.errText = '';
+      })
+      // tslint:disable-next-line: no-console
+      .catch((err) => {
+        this.errText = err.message;
         // tslint:disable-next-line: no-console
-        .catch((err) => {
-          this.errText = err.message;
-          // tslint:disable-next-line: no-console
-          console.trace();
-          // tslint:disable-next-line: no-console
-          console.error(err);
-        });
+        console.trace();
+        // tslint:disable-next-line: no-console
+        console.error(err);
+      });
     },
     changePassVisibility() {
       this.isPassVisible = !this.isPassVisible;

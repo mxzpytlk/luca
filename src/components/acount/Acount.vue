@@ -27,7 +27,7 @@ export default {
   methods: {
     close() {
       this.$router.push(RouterPath.MAIN);
-    }
+    },
   },
 };
 </script>
