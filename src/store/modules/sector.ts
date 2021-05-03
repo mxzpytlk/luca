@@ -44,6 +44,8 @@ export default {
       }
       state.sectors = sectors;
     },
+
+
     removeSectors(state: any, removingSectors: ISector[]) {
       const removeIds = new Set(removingSectors.map((sector) => sector.id));
       state.sectors = state.sectors.filter((sector: ISector) => !removeIds.has(sector.id));
@@ -71,6 +73,8 @@ export default {
   },
   getters: {
     sectors: (state: any): ISector[] => state.sectors,
+
+    filterDate: (state: any): Date => state.filterDate,
 
     todayRecords(state: any) {
       const records = flatArr((state.sectors as ISector[]).map((sector) => sector.records));

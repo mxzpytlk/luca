@@ -18,7 +18,8 @@
         v-for="record in sector.records"
         :key="record.id" 
         v-bind:class="{sector__record_active : isRecordToday(record)}"
-        @click.prevent="makeRecordActive(record)"
+        @click.left.prevent="makeRecordActive(record)"
+        @click.right.prevent="changeRecordDateToday(record)"
       >
         <span class="sector__record_text" >
           {{ record.text }}
@@ -48,9 +49,19 @@ export default {
     };
   },
   methods: {
+
     isRecordToday(record) {
-      return new Date().toDateString() === record?.executionDate?.toDateString();
+      return this.$store.getters.filterDate.toDateString() === record?.executionDate?.toDateString();
     },
+
+
+    async changeRecordDateToday(record) {
+      record.executionDate = this.$store.getters.filterDate;
+      const title = this.$store.getters.sectorTitle(record.id);
+      await this.$store.dispatch('addRecord', { record, title });
+    },
+
+
     makeRecordActive(record) {
       if (this.activeRecord?.id === record.id) {
         this.$emit('openMenu', null);
@@ -58,12 +69,17 @@ export default {
       }
       this.$emit('openMenu', record);
     },
+
+
     isRecordActive(record) {
       return record.id === this.activeRecord?.id;
     },
+
+
     async deleteRecord(record) {
       this.$store.dispatch('removeRecord', record);
     },
+
   },
   props: ['sector', 'activeRecord'],
 };
