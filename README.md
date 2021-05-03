@@ -1,29 +1,16 @@
 # luca
 
-## Project setup
-```
-yarn install
-```
+This is simple web-app for short time-menegement with user-friendly interface.
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+Before developing you need to install [node js](https://nodejs.org/en/)
 
-### Compiles and minifies for production
-```
-yarn build
-```
+Make sure that you have npm and run `npm install` in terminal in project's directory.
+It will download dependencies.
 
-### Run your end-to-end tests
-```
-yarn test:e2e
-```
 
-### Lints and fixes files
-```
-yarn lint
-```
+Than to run app you have to write `npm run serve` in terminal.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+To make production build run `npm run build`
+
+In the end to lint code run `npm run lint`
