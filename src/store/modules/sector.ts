@@ -8,8 +8,10 @@ import { generateId } from '@/core/utills/random.utills';
 export default {
   state: {
     sectors: [],
+    filterDate: new Date(),
   },
   mutations: {
+
     pushRecord(state: any, data: { record: IRecord, title: string }) {
       const sectors = (state.sectors as ISector[]);
       const curSector = sectors.find((item) => item.title === data.title);
@@ -29,6 +31,8 @@ export default {
       }
       setInLocalStorage(LocalStorageKey.SECTORS, sectors);
     },
+
+
     loadRecords(state: any) {
       const sectors: ISector[] = getFromLocalStorage(LocalStorageKey.SECTORS) || [];
       for (const sector of sectors) {
@@ -45,6 +49,13 @@ export default {
       state.sectors = state.sectors.filter((sector: ISector) => !removeIds.has(sector.id));
       setInLocalStorage(LocalStorageKey.SECTORS, state.sectors);
     },
+
+
+    changeFilterDate(stae: any, newDate: Date) {
+      stae.filterDate = newDate;
+    },
+
+
     removeRecord(state: any, record: IRecord) {
       const sectors: ISector[] = state.sectors;
       const curSectorIdx = sectors.findIndex((sector) => sector.records.find((item) => item.id === record.id));
@@ -56,13 +67,14 @@ export default {
       }
       setInLocalStorage(LocalStorageKey.SECTORS, state.sectors);
     },
+
   },
   getters: {
     sectors: (state: any): ISector[] => state.sectors,
 
     todayRecords(state: any) {
       const records = flatArr((state.sectors as ISector[]).map((sector) => sector.records));
-      return records.filter((recors) => recors.executionDate?.toDateString() === new Date().toDateString());
+      return records.filter((recors) => recors.executionDate?.toDateString() === state.filterDate.toDateString());
     },
 
 
@@ -105,6 +117,9 @@ export default {
     },
     async removeRecord({commit}: any, record: IRecord) {
       commit('removeRecord', record);
+    },
+    async chandgeDate({commit}: any, date: Date) {
+      commit('changeFilterDate', date);
     },
   },
 };

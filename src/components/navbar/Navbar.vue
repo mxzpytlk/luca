@@ -9,7 +9,10 @@
       />
       <input type="checkbox" name="" id="" v-model="hasMenu" class="luca-checkbox_hidden" />
     </span>
-    <span class="nav_date">{{ date | date }}</span>
+    <div class="nav__date">
+      <span>{{ date | date }}</span>
+      <vueye-datepicker class="nav__date_input" v-model="date" color="#4466ee" format="yyyy-mm-dd" />
+    </div>
     <menu-bar v-if="hasMenu" />
     <h2 class="app__title">LUCA</h2>
   </nav>
@@ -18,6 +21,7 @@
 <script>
 import './navbar.scss';
 import MenuBar from '../menu-bar/MenuBar';
+import VueyeDatepicker from 'vueye-datepicker';
 
 export default {
   data() {
@@ -26,6 +30,11 @@ export default {
       hasMenu: false,
     };
   },
-  components: { MenuBar },
+  watch: {
+    date(from, to) {
+      this.$store.dispatch('chandgeDate', (to?.value || to));
+    },
+  },
+  components: { MenuBar, VueyeDatepicker },
 };
 </script>

@@ -25,10 +25,25 @@
     position: relative;
   }
 
-  &_date {
+  &__date {
     margin-left: 10px;
     font-size: 1.2em;
     cursor: pointer;
+    position: relative;
+
+    &_input {
+      & input[type=text] {
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      & > .ve-dp-input > svg {
+        opacity: 0;
+      }
+
+      position: absolute !important;
+      top: 0;
+    }
   }
 }
 
