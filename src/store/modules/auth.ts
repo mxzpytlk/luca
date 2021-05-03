@@ -7,10 +7,14 @@ export default {
     token: localStorage.getItem(LocalStorageKey.TOKEN),
   },
   mutations: {
+
+
     auth_success(state: any, auth: { token: string }) {
       state.status = 'success';
       state.token = auth.token;
     },
+
+
     logout(state: any) {
       state.status = '';
       state.token = '';
@@ -21,6 +25,7 @@ export default {
     authStatus: (state: any) => state.status,
   },
   actions: {
+
     async login({ commit }: any, loginData: IAuthData) {
     // TODO Make login by connection with server
       const { name, pass } = loginData;
@@ -37,6 +42,8 @@ export default {
         throw new Error('Login or password is incorrect');
       }
     },
+
+
     async register({ }, registerData: IAuthData) {
       const { name, pass } = registerData;
       if (!name || !pass) {
@@ -44,6 +51,8 @@ export default {
       }
       // TODO
     },
+
+
     async logout({ commit }: any) {
       localStorage.removeItem(LocalStorageKey.TOKEN);
       commit('logout');

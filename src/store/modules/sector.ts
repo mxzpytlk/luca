@@ -33,6 +33,11 @@ export default {
     },
 
 
+    setSectors(state: any, sectors: ISector[]) {
+      state.sectors = sectors;
+    },
+
+
     loadRecords(state: any) {
       const sectors: ISector[] = getFromLocalStorage(LocalStorageKey.SECTORS) || [];
       for (const sector of sectors) {
@@ -124,6 +129,10 @@ export default {
     },
     async chandgeDate({commit}: any, date: Date) {
       commit('changeFilterDate', date);
+    },
+    async updateSectors({commit}: any, sectors: ISector[]) {
+      setInLocalStorage(LocalStorageKey.SECTORS, sectors);
+      commit('setSectors', sectors);
     },
   },
 };
