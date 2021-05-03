@@ -66,17 +66,18 @@
 
     &__container {
       width: 100%;
+
     }
 
     &__record {
+      flex-direction: column;
+
       &_text {
-        max-width: 40%;
-        min-width: 40%;
+        min-width: 100%;
       }
   
       &_progress {
-        max-width: 50%;
-        min-width: 50%;
+        min-width: 100%;
       }
     }
   }
