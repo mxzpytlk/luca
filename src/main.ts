@@ -9,6 +9,9 @@ import { faBars, faEye, faCaretDown, faWindowClose, faArrowAltCircleRight, faSig
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faFontAwesome } from '@fortawesome/free-brands-svg-icons';
 import VueComp from '@vue/composition-api';
+import { filterDate } from './core/filters/date.filter';
+import { filterTime } from './core/filters/time.filter';
+import { localeFilter } from './core/filters/locale.filter';
 
 library.add(faBars, faFontAwesome, faEye, faCaretDown, faWindowClose, faArrowAltCircleRight, faSignOutAlt);
 
@@ -30,19 +33,6 @@ if (token) {
 
 Vue.use(VueComp);
 
-Vue.filter('date', (date: Date) => {
-  if (!date) {
-    return null;
-  }
-  date = (date as any)?.value || date;
-  const year = date.getFullYear();
-  const month = `0${date.getMonth() + 1}`.slice(-2);
-  const day = `0${date.getDate()}`.slice(-2);
-  return `${year}-${month}-${day}`;
-});
-
-Vue.filter('time', (time: number) => {
-  const hours = Math.trunc(time);
-  const minutes = Math.round((time - hours) * 60);
-  return (!!hours ? `${hours}h ` : '') + (!!minutes ? `${minutes}m` : '');
-});
+Vue.filter('date', filterDate);
+Vue.filter('time', filterTime);
+Vue.filter('locale', localeFilter);

@@ -45,6 +45,15 @@
       top: 0;
     }
   }
+
+  &__locale {
+    margin: 0 3px;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .app__title {

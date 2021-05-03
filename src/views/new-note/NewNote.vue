@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <form class="form" @submit.prevent="addRecord">
-      <input type="text" name="title" class="luca-input" placeholder="Write sector title" v-model="title" required>
+      <input type="text" name="title" class="luca-input" :placeholder="'enter_sector_title' | locale" v-model="title" required>
       <vueye-datepicker v-model="date" color="#4466ee" format="yyyy-mm-dd" />
       <div class="form__time">
         <label for="plan">
-          Planed time
+          {{ 'planed_time' | locale }}
         </label>
         <div>
           <input type="range" name="plan" min="0" max="10" step="0.25" v-model="planedTime" class="form__time_input">
@@ -14,8 +14,8 @@
           </span>
         </div>
       </div>
-      <textarea name="text" class="luca-input form__text" placeholder="Write record" v-model="text" required/>
-      <input type="submit" value="Add note" class="form__btn">
+      <textarea name="text" class="luca-input form__text" :placeholder="'enter_record' | locale" v-model="text" required/>
+      <input type="submit" :value="'add_note' | locale" class="form__btn">
       <font-awesome-icon
         icon="window-close"
         size="2x"
@@ -43,6 +43,7 @@ export default {
     };
   },
   methods: {
+
     async addRecord() {
       const record = {
         id: generateId(),
@@ -50,13 +51,16 @@ export default {
         executionDate: this.date.value,
         executionPlanTime: this.planedTime,
       };
+
       await this.$store.dispatch('addRecord', { record, title: this.title });
       this.title = '';
       this.text = '';
     },
+
     closeForm() {
       this.$router.push('/main');
     },
+
   },
   components: { VueyeDatepicker },
 };

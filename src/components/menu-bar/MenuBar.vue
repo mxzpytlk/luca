@@ -7,7 +7,7 @@
       :key="path.name"
       class="menu-bar__link"
     >
-      {{ path.name }}
+      {{ path.name | locale}}
     </router-link>
   </ul>
 </template>

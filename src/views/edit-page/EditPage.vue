@@ -12,7 +12,7 @@
       </h2>
       <vueye-datepicker v-model="executionEnd" color="#4466ee" format="yyyy-mm-dd" />
       <span>
-        Time spent
+        {{ 'time_spent' | locale }}
       </span>
       <vue-range-slider
         ref="slider"
@@ -25,7 +25,7 @@
       >
       </vue-range-slider>
       <textarea class="edit__text" placeholder="Here should be record" v-model="text"/>
-      <input type="submit" value="Edit record" class="edit__btn">
+      <input type="submit" :value="'edit_record' | locale" class="edit__btn">
     </form>
   </div>
 </template>

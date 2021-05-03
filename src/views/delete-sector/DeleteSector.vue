@@ -10,7 +10,7 @@
       >
           {{sector.title}}
       </span>
-      <input type="submit" value="Delete" class="delete__btn">
+      <input type="submit" :value="'delete' | locale" class="delete__btn">
     </form>
   </div>
 </template>

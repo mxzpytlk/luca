@@ -8,25 +8,25 @@ export interface IRouterViewPath {
 
 export const viewPath: IRouterViewPath[] = [
   {
-    name: 'Add note',
+    name: 'add_note',
     path: RouterPath.NEW_NOTE,
     fullPath: [RouterPath.MAIN, RouterPath.NEW_NOTE],
   },
   {
-    name: 'Main',
+    name: 'main',
     path: RouterPath.MAIN,
   },
   {
-    name: 'Statistics',
+    name: 'statistics',
     path: RouterPath.MAIN,
   },
   {
-    name: 'Delete sector',
+    name: 'delete_sector',
     path: RouterPath.DELETE_SECTOR,
     fullPath: [RouterPath.MAIN, RouterPath.DELETE_SECTOR],
   },
   {
-    name: 'Acount',
+    name: 'acount',
     path: RouterPath.ACOUNT,
     fullPath: [RouterPath.MAIN, RouterPath.ACOUNT],
   },

@@ -15,6 +15,11 @@
     </div>
     <menu-bar v-if="hasMenu" />
     <h2 class="app__title">LUCA</h2>
+    <div>
+      <span class="nav__locale" @click.prevent="setEn">en</span>
+      <span>/</span>
+      <span class="nav__locale" @click.prevent="setRu">ru</span>
+    </div>
   </nav>
 </template>
 
@@ -35,6 +40,17 @@ export default {
       this.$store.dispatch('chandgeDate', (to?.value || to));
     },
   },
+
+  methods: {
+    async setEn() {
+      this.$store.dispatch('setLocale', 'en');
+    },
+
+    async setRu() {
+      this.$store.dispatch('setLocale', 'ru');
+    },
+  },
+
   components: { MenuBar, VueyeDatepicker },
 };
 </script>
