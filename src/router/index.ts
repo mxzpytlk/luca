@@ -47,6 +47,12 @@ const routes: RouteConfig[] = [
   {
     path: '*',
     component: () => store.getters.isLoggedIn ? import('../views/luca-container/LucaContainer.vue') : import('../views/auth/Auth.vue'),
+    children: [
+      {
+        path: '*',
+        component: () => import('../views/day-plan/DayPlan.vue'),
+      },
+    ],
   },
 ];
 

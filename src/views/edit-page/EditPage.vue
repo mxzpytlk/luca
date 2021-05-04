@@ -25,7 +25,7 @@
       >
       </vue-range-slider>
       <textarea class="edit__text" placeholder="Here should be record" v-model="text"/>
-      <input type="submit" :value="'edit_record' | locale" class="edit__btn">
+      <input type="submit" :value="'edit' | locale" class="edit__btn">
     </form>
   </div>
 </template>

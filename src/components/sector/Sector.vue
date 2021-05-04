@@ -28,9 +28,9 @@
           {{ record.executionDate | date }}
         </span>
         <ul class="sector__record_menu" v-if="isRecordActive(record)">
-          <router-link :to="'/main/edit/' + record.id" class="sector__record_btn">Edit record</router-link>
+          <router-link :to="'/main/edit/' + record.id" class="sector__record_btn">{{ 'edit' | locale }}</router-link>
           <li class="sector__record_btn sector__record_delete" @click.prevent="deleteRecord(record)">
-            Delete record
+            {{ 'delete' | locale }}
           </li>
         </ul>
       </div>
