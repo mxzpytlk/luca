@@ -1,17 +1,21 @@
+import { ApiHref } from '@/core/enums/api.enum';
 import { LocalStorageKey } from '@/core/enums/local-storage-key';
 import { IAuthData } from '@/core/interfaces/auth-data.interface';
+import { post } from '@/core/utills/api.utills';
 import { setInLocalStorage } from '@/core/utills/local-storage.utills';
 
 export default {
   state: {
     token: localStorage.getItem(LocalStorageKey.TOKEN),
+    name: localStorage.getItem(LocalStorageKey.NAME),
   },
   mutations: {
 
 
-    auth_success(state: any, auth: { token: string }) {
+    auth_success(state: any, auth: { token: string, name: string }) {
       state.status = 'success';
       state.token = auth.token;
+      state.name = auth.name;
     },
 
 
@@ -23,21 +27,23 @@ export default {
   getters: {
     isLoggedIn: (state: any) => !!state.token,
     authStatus: (state: any) => state.status,
+    name: (state: any) => state.name,
   },
   actions: {
 
     async login({ commit }: any, loginData: IAuthData) {
     // TODO Make login by connection with server
       const { name, pass } = loginData;
-      let token;
       if (!name || !pass) {
         throw new Error('Name and password can\'t be empty');
       }
 
-      if (name === 'z1' && pass === '1') {
-        token = 'TODO';
+      const res = await post(ApiHref.LOGIN, loginData);
+      const token = res?.data?.token;
+      if (token) {
         setInLocalStorage(LocalStorageKey.TOKEN, token);
-        commit('auth_success', { token: 'TODO' });
+        setInLocalStorage(LocalStorageKey.NAME, name);
+        commit('auth_success', { token, name });
       } else {
         throw new Error('Login or password is incorrect');
       }
@@ -49,7 +55,7 @@ export default {
       if (!name || !pass) {
         throw new Error('Name and password can\'t be empty');
       }
-      // TODO
+      await post(ApiHref.REGISTER, { name, pass });
     },
 
 
