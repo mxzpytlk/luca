@@ -3,7 +3,7 @@ import config from '../../assets/config.json';
 import { ApiHref } from '../enums/api.enum';
 import auth from '../../store/modules/auth';
 
-export function getUrlByHref(href: ApiHref): string {
+function getUrlByHref(href: ApiHref): string {
   return config.url + href;
 }
 
@@ -15,6 +15,10 @@ export async function get(href: ApiHref, data?: any): Promise<any> {
   return await makeRequest(href, 'GET', data);
 }
 
+export async function remove(href: ApiHref, data?: any): Promise<any> {
+  return await makeRequest(href, 'DELETE', data);
+}
+
 async function makeRequest(href: ApiHref, method: any, data?: any): Promise<any> {
   try {
     return await axios({
@@ -22,7 +26,7 @@ async function makeRequest(href: ApiHref, method: any, data?: any): Promise<any>
       url: getUrlByHref(href),
       params: {
         ...data,
-        userId: auth.getters.userId,
+        userId: auth.state.userId,
       },
     });
   } catch (e) {

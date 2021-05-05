@@ -2,10 +2,9 @@ import { ApiHref } from '@/core/enums/api.enum';
 import { LocalStorageKey } from '@/core/enums/local-storage-key';
 import { IRecord } from '@/core/interfaces/record';
 import { ISector } from '@/core/interfaces/sector.interface';
-import { get, post } from '@/core/utills/api.utills';
+import { get, post, remove } from '@/core/utills/api.utills';
 import { flatArr } from '@/core/utills/array.utills';
-import { getFromLocalStorage, setInLocalStorage } from '@/core/utills/local-storage.utills';
-import auth from './auth';
+import { setInLocalStorage } from '@/core/utills/local-storage.utills';
 
 export default {
   state: {
@@ -31,7 +30,6 @@ export default {
           id: data.id,
         });
       }
-      setInLocalStorage(LocalStorageKey.SECTORS, sectors);
     },
 
 
@@ -52,7 +50,6 @@ export default {
     removeSectors(state: any, removingSectors: ISector[]) {
       const removeIds = new Set(removingSectors.map((sector) => sector.id));
       state.sectors = state.sectors.filter((sector: ISector) => !removeIds.has(sector.id));
-      setInLocalStorage(LocalStorageKey.SECTORS, state.sectors);
     },
 
 
@@ -70,7 +67,6 @@ export default {
       if (curSector.records.length === 0) {
         sectors.splice(curSectorIdx, 1);
       }
-      setInLocalStorage(LocalStorageKey.SECTORS, state.sectors);
     },
 
   },
@@ -116,11 +112,15 @@ export default {
     async addRecord({ commit, state }: any, data: { record: IRecord, title: string }) {
       const { title, record } = data;
 
-      const res = await post(ApiHref.ADD_RECORD, { title, record, id: state.auth.userId });
+      const res = await post(ApiHref.ADD_RECORD, { title, record });
       const id = res?.data?.id;
       commit('pushRecord', { title, record, id });
     },
     async deleteSectors({ commit }: any,  sectors: ISector[]) {
+      const removeIds = new Set(sectors.map((sector) => sector.id));
+      const res = await remove(ApiHref.DELETE_SECTOR, {
+        removeIds: Array.from(removeIds),
+      });
       commit('removeSectors', sectors);
     },
     async removeRecord({commit}: any, record: IRecord) {
@@ -130,14 +130,12 @@ export default {
       commit('changeFilterDate', date);
     },
     async updateSectors({ commit }: any, sectors: ISector[]) {
-      setInLocalStorage(LocalStorageKey.SECTORS, sectors);
       commit('setSectors', sectors);
     },
-    async loadRecords({ commit, state }: any) {
-      const res = await get(ApiHref.GET_SECTORS, { id: state.auth.userId });
+    async loadRecords({ commit }: any) {
+      const res = await get(ApiHref.GET_SECTORS);
       const sectors: ISector[] = res?.data?.sectors;
       commit('setSectors', sectors);
     },
   },
-  modules: { auth },
 };
