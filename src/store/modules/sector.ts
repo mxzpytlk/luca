@@ -1,9 +1,11 @@
+import { ApiHref } from '@/core/enums/api.enum';
 import { LocalStorageKey } from '@/core/enums/local-storage-key';
 import { IRecord } from '@/core/interfaces/record';
 import { ISector } from '@/core/interfaces/sector.interface';
+import { post } from '@/core/utills/api.utills';
 import { flatArr } from '@/core/utills/array.utills';
 import { getFromLocalStorage, setInLocalStorage } from '@/core/utills/local-storage.utills';
-import { generateId } from '@/core/utills/random.utills';
+import auth from './auth';
 
 export default {
   state: {
@@ -12,7 +14,7 @@ export default {
   },
   mutations: {
 
-    pushRecord(state: any, data: { record: IRecord, title: string }) {
+    pushRecord(state: any, data: { record: IRecord, title: string, id: string }) {
       const sectors = (state.sectors as ISector[]);
       const curSector = sectors.find((item) => item.title === data.title);
       if (curSector) {
@@ -26,7 +28,7 @@ export default {
         sectors.push({
           title: data.title,
           records: [data.record],
-          id: generateId(),
+          id: data.id,
         });
       }
       setInLocalStorage(LocalStorageKey.SECTORS, sectors);
@@ -115,8 +117,12 @@ export default {
 
   },
   actions: {
-    async addRecord({ commit }: any, data: { record: IRecord, title: string }) {
-      commit('pushRecord', data);
+    async addRecord({ commit, state }: any, data: { record: IRecord, title: string }) {
+      const { title, record } = data;
+
+      const res = await post(ApiHref.ADD_RECORD, { title, record, id: state.auth.userId });
+      const id = res?.data?.id;
+      commit('pushRecord', { title, record, id });
     },
     async deleteSectors({ commit }: any,  sectors: ISector[]) {
       commit('removeSectors', sectors);
@@ -130,9 +136,10 @@ export default {
     async chandgeDate({commit}: any, date: Date) {
       commit('changeFilterDate', date);
     },
-    async updateSectors({commit}: any, sectors: ISector[]) {
+    async updateSectors({ commit }: any, sectors: ISector[]) {
       setInLocalStorage(LocalStorageKey.SECTORS, sectors);
       commit('setSectors', sectors);
     },
   },
+  modules: { auth },
 };

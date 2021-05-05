@@ -3,4 +3,5 @@ export enum LocalStorageKey {
   NAME = 'name',
   SECTORS = 'sectors',
   LOCALE = 'locale',
+  USER_ID = 'user_id',
 }

@@ -2,20 +2,21 @@ import { ApiHref } from '@/core/enums/api.enum';
 import { LocalStorageKey } from '@/core/enums/local-storage-key';
 import { IAuthData } from '@/core/interfaces/auth-data.interface';
 import { post } from '@/core/utills/api.utills';
-import { setInLocalStorage } from '@/core/utills/local-storage.utills';
 
 export default {
   state: {
     token: localStorage.getItem(LocalStorageKey.TOKEN),
     name: localStorage.getItem(LocalStorageKey.NAME),
+    userId: localStorage.getItem(LocalStorageKey.USER_ID),
   },
   mutations: {
 
 
-    auth_success(state: any, auth: { token: string, name: string }) {
+    auth_success(state: any, auth: { token: string, name: string, id: string }) {
       state.status = 'success';
       state.token = auth.token;
       state.name = auth.name;
+      state.userId = auth.id;
     },
 
 
@@ -31,6 +32,7 @@ export default {
     isLoggedIn: (state: any) => !!state.token,
     authStatus: (state: any) => state.status,
     name: (state: any) => state.name,
+    userId: (state: any) => state.id,
   },
 
   actions: {
@@ -42,11 +44,13 @@ export default {
       }
 
       const res = await post(ApiHref.LOGIN, loginData);
-      const token = res?.data?.token;
-      if (token) {
-        setInLocalStorage(LocalStorageKey.TOKEN, token);
+
+      const { token, id } = res?.data;
+      if (token && id) {
+        localStorage.setItem(LocalStorageKey.TOKEN, token);
         localStorage.setItem(LocalStorageKey.NAME, name);
-        commit('auth_success', { token, name });
+        localStorage.setItem(LocalStorageKey.USER_ID, id);
+        commit('auth_success', { token, name, id });
       } else {
         throw new Error('Login or password is incorrect');
       }
