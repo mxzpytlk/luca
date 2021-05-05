@@ -7,9 +7,13 @@ export function getUrlByHref(href: ApiHref): string {
 }
 
 export async function post(href: ApiHref, data?: any): Promise<any> {
-  return await axios({
-    method: 'POST',
-    url: getUrlByHref(href),
-    params: data,
-  });
+  try {
+    return await axios({
+      method: 'POST',
+      url: getUrlByHref(href),
+      params: data,
+    });
+  } catch (e) {
+    throw e?.response?.data;
+  }
 }
