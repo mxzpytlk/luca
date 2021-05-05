@@ -17,6 +17,17 @@
           />
           <font-awesome-icon icon="eye" class="auth__icon_eye" @click.prevent="changePassVisibility"/>
         </div>
+        <div class="auth__input" v-if="isPathRegister" :key="keyRepeat">
+          <input
+            v-bind:type="isPassVisibleRepeat ? 'text' : 'password'"
+            class="auth__input luca-input"
+            name="pass"
+            placeholder="Repeat password"
+            v-model="repeatPass"
+            autocomplete="new-password"
+          />
+          <font-awesome-icon icon="eye" class="auth__icon_eye" @click.prevent="changePassVisibility(false)"/>
+        </div>
         <div class="auth__error">{{ errText }}</div>
         <input type="submit" class="auth__submit" v-bind:value="curActionName" />
       </form>
@@ -36,9 +47,12 @@ export default {
     return {
       name: '',
       pass: '',
+      repeatPass: '',
       errText: '',
-      key: 0,
+      key: 1,
+      keyRepeat: 0,
       isPassVisible: false,
+      isPassVisibleRepeat: false,
     };
   },
   computed: {
@@ -56,6 +70,11 @@ export default {
     login() {
       const path = this.$route.path;
       const loginAction = path === RouterPath.REGISTER ? 'register' : 'login';
+
+      if (loginAction === 'register' && this.pass !== this.repeatPass) {
+        this.errText = 'Passwords are different';
+        return;
+      }
 
       const data = {
         name: this.name,
@@ -79,9 +98,15 @@ export default {
         console.error(err);
       });
     },
-    changePassVisibility() {
-      this.isPassVisible = !this.isPassVisible;
-      this.key += 1;
+
+    changePassVisibility(pass = true) {
+      if (pass) {
+        this.isPassVisible = !this.isPassVisible;
+        this.key += 1;
+      } else {
+        this.isPassVisibleRepeat = !this.isPassVisibleRepeat;
+        this.keyRepeat -= 1;
+      }
     },
   },
 };
