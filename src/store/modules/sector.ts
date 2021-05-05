@@ -2,7 +2,7 @@ import { ApiHref } from '@/core/enums/api.enum';
 import { LocalStorageKey } from '@/core/enums/local-storage-key';
 import { IRecord } from '@/core/interfaces/record';
 import { ISector } from '@/core/interfaces/sector.interface';
-import { post } from '@/core/utills/api.utills';
+import { get, post } from '@/core/utills/api.utills';
 import { flatArr } from '@/core/utills/array.utills';
 import { getFromLocalStorage, setInLocalStorage } from '@/core/utills/local-storage.utills';
 import auth from './auth';
@@ -36,17 +36,13 @@ export default {
 
 
     setSectors(state: any, sectors: ISector[]) {
-      state.sectors = sectors;
-    },
-
-
-    loadRecords(state: any) {
-      const sectors: ISector[] = getFromLocalStorage(LocalStorageKey.SECTORS) || [];
       for (const sector of sectors) {
+        sector.id =  sector?._id || sector.id;
         for (const record of sector.records) {
           if (!!record.executionDate) {
             record.executionDate = new Date(record.executionDate);
           }
+          record.id =  record?._id || record.id;
         }
       }
       state.sectors = sectors;
@@ -127,9 +123,6 @@ export default {
     async deleteSectors({ commit }: any,  sectors: ISector[]) {
       commit('removeSectors', sectors);
     },
-    async updateRecords({commit}: any) {
-      commit('loadRecords');
-    },
     async removeRecord({commit}: any, record: IRecord) {
       commit('removeRecord', record);
     },
@@ -138,6 +131,11 @@ export default {
     },
     async updateSectors({ commit }: any, sectors: ISector[]) {
       setInLocalStorage(LocalStorageKey.SECTORS, sectors);
+      commit('setSectors', sectors);
+    },
+    async loadRecords({ commit, state }: any) {
+      const res = await get(ApiHref.GET_SECTORS, { id: state.auth.userId });
+      const sectors: ISector[] = res?.data?.sectors;
       commit('setSectors', sectors);
     },
   },

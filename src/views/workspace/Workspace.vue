@@ -20,7 +20,7 @@ export default {
     },
   },
   async mounted() {
-    await this.$store.dispatch('updateRecords');
+    await this.$store.dispatch('loadRecords');
   },
   components: { Band, Acount },
 };

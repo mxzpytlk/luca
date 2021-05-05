@@ -4,4 +4,5 @@ export interface IRecord {
   executionDate: Date;
   executionPlanTime: number;
   executionTime?: number;
+  _id?: string;
 }

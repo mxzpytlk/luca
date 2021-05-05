@@ -17,3 +17,16 @@ export async function post(href: ApiHref, data?: any): Promise<any> {
     throw e?.response?.data;
   }
 }
+
+export async function get(href: ApiHref, data?: any): Promise<any> {
+  try {
+    return await axios({
+      method: 'GET',
+      url: getUrlByHref(href),
+      params: data,
+    });
+  } catch (e) {
+    throw e?.response?.data;
+  }
+}
+
