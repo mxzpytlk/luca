@@ -22,17 +22,20 @@ export default {
     logout(state: any) {
       state.status = '';
       state.token = '';
+      state.name = '';
     },
+
   },
+
   getters: {
     isLoggedIn: (state: any) => !!state.token,
     authStatus: (state: any) => state.status,
     name: (state: any) => state.name,
   },
+
   actions: {
 
     async login({ commit }: any, loginData: IAuthData) {
-    // TODO Make login by connection with server
       const { name, pass } = loginData;
       if (!name || !pass) {
         throw new Error('Name and password can\'t be empty');
@@ -42,7 +45,7 @@ export default {
       const token = res?.data?.token;
       if (token) {
         setInLocalStorage(LocalStorageKey.TOKEN, token);
-        setInLocalStorage(LocalStorageKey.NAME, name);
+        localStorage.setItem(LocalStorageKey.NAME, name);
         commit('auth_success', { token, name });
       } else {
         throw new Error('Login or password is incorrect');
@@ -61,6 +64,7 @@ export default {
 
     async logout({ commit }: any) {
       localStorage.removeItem(LocalStorageKey.TOKEN);
+      localStorage.removeItem(LocalStorageKey.NAME);
       commit('logout');
     },
   },
