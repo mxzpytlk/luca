@@ -8,6 +8,7 @@ export default {
   state: {
     sectors: [],
     filterDate: new Date(),
+    filterRecords: new Set<IRecord>(),
   },
   mutations: {
 
@@ -51,8 +52,13 @@ export default {
     },
 
 
-    changeFilterDate(stae: any, newDate: Date) {
-      stae.filterDate = newDate;
+    changeFilterDate(state: any, newDate: Date) {
+      state.filterDate = newDate;
+      state.filterRecords = new Set();
+    },
+
+    makeRecordsImportant(state: any, records: IRecord[]) {
+      state.filterRecords = new Set(records);
     },
 
 
@@ -73,11 +79,23 @@ export default {
 
     filterDate: (state: any): Date => state.filterDate,
 
-    todayRecords(state: any) {
-      const records = flatArr((state.sectors as ISector[]).map((sector) => sector.records));
-      return records.filter((recors) => recors.executionDate?.toDateString() === state.filterDate.toDateString());
+    allRecords(state: any) {
+      return flatArr((state.sectors as ISector[]).map((sector) => sector.records));
     },
 
+    todayRecords(state: any, getters: any): IRecord[] {
+      const records = getters.allRecords;
+      return records
+        .filter((record: IRecord) => record.executionDate?.toDateString() === state.filterDate.toDateString());
+    },
+
+    isImportant(state: any) {
+      return (record: IRecord) => {
+        return (state.filterRecords.size === 0
+                && state.filterDate.toDateString() === record?.executionDate?.toDateString())
+              || state.filterRecords.has(record);
+      };
+    },
 
     record(state: any): (id: string) => IRecord {
       return (id: string) => {

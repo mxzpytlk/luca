@@ -17,7 +17,7 @@
       <div class="sector__record"
         v-for="record in sector.records"
         :key="record.id" 
-        v-bind:class="{sector__record_active : isRecordToday(record)}"
+        v-bind:class="{sector__record_active : isImportant(record)}"
         @click.left.prevent="makeRecordActive(record)"
         @click.right.prevent="changeRecordDateToday(record)"
       >
@@ -41,13 +41,16 @@
 <script lang="js">
 import { IRecord } from '@/core/interfaces/record';
 import './sector.scss';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
     return {
       isRecords: false,
+      highlightedRecords: [],
     };
   },
+  computed: mapGetters(['isImportant']),
   methods: {
 
     isRecordToday(record) {
