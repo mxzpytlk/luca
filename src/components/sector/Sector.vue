@@ -57,7 +57,7 @@ export default {
 
     async changeRecordDateToday(record) {
       record.executionDate = this.$store.getters.filterDate;
-      await this.$store.dispatch('updateRecord', { record });
+      await this.$store.dispatch('updateRecord', record );
     },
 
 

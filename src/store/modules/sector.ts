@@ -129,6 +129,7 @@ export default {
     },
 
     async removeRecord({commit}: any, record: IRecord) {
+      await remove(ApiHref.DELETE_RECORD, record );
       commit('removeRecord', record);
     },
     async chandgeDate({commit}: any, date: Date) {
