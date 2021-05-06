@@ -9,5 +9,12 @@
   "planed_time": "Planed time",
   "delete": "Delete",
   "time_spent": "Time spent",
-  "edit": "Edit"
+  "edit": "Edit",
+  "change_pass": "Change password",
+  "send": "Send",
+  "old_pass": "Old password",
+  "new_pass": "New password",
+  "repeat_pass": "Repeat password",
+  "pass_are_diff": "Passwords are different",
+  "incorrect_pass": "Incorrect password"
 }

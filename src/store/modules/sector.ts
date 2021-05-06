@@ -109,7 +109,7 @@ export default {
 
   },
   actions: {
-    async addRecord({ commit, state }: any, data: { record: IRecord, title: string }) {
+    async addRecord({ commit }: any, data: { record: IRecord, title: string }) {
       const { title, record } = data;
 
       const res = await post(ApiHref.ADD_RECORD, { title, record });

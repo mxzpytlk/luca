@@ -1,9 +1,11 @@
+import { ApiHref } from '@/core/enums/api.enum';
 import { LocalStorageKey } from '@/core/enums/local-storage-key';
+import { post } from '@/core/utills/api.utills';
 import { setInLocalStorage } from '@/core/utills/local-storage.utills';
 
 export default {
   state: {
-    locale: localStorage.getItem(LocalStorageKey.LOCALE)?.slice(1, 3) || 'en',
+    locale: localStorage.getItem(LocalStorageKey.LOCALE) || 'en',
   },
 
   mutations: {
@@ -18,8 +20,15 @@ export default {
 
   actions: {
     setLocale({ commit }: any, newLocale: string) {
-      setInLocalStorage(LocalStorageKey.LOCALE, newLocale);
+      localStorage.setItem(LocalStorageKey.LOCALE, newLocale);
       commit('updateLocale', newLocale);
+    },
+
+    async changePass({ }: any, data: { oldPass: string, newPass: string }) {
+      const { oldPass, newPass } = data;
+      await post(ApiHref.CHANGE_PASS, {
+        newPass, oldPass,
+      });
     },
   },
 };

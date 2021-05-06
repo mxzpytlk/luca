@@ -1,0 +1,16 @@
+.pass {
+  &__container {
+    position: relative;
+  }
+
+  &__eye {
+    position: absolute;
+    top: 35%;
+    right: 10px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+}
