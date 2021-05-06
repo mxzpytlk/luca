@@ -92,8 +92,7 @@ export default {
       record.executionDate = this.executionEnd.value;
       record.text = this.text;
       record.executionTime = this.executionTime;
-      await this.$store.dispatch('addRecord',
-        { record, title: this.$store.getters.sectorTitle(record.id)});
+      await this.$store.dispatch('updateRecord', record);
       this.$router.push('/main');
     },
     closeForm() {

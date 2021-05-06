@@ -125,7 +125,7 @@ export default {
     },
 
     async updateRecord({ }: any, record: IRecord) {
-      const res = await post(ApiHref.UPDATE_RECORD, record);
+      await post(ApiHref.UPDATE_RECORD, { record });
     },
 
     async removeRecord({commit}: any, record: IRecord) {
