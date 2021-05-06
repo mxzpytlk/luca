@@ -69,9 +69,6 @@ export default {
     changeFormVisibility() {
       this.showForm = !this.showForm;
     },
-    changePassVisibility(idx) {
-      this.fieldsVisibilities[idx] = !this.fieldsVisibilities[idx];
-    },
     async logout() {
       if (confirm('Are you sure you want to leave your acount')) {
         await this.$store.dispatch('logout');

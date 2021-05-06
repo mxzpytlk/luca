@@ -57,8 +57,7 @@ export default {
 
     async changeRecordDateToday(record) {
       record.executionDate = this.$store.getters.filterDate;
-      const title = this.$store.getters.sectorTitle(record.id);
-      await this.$store.dispatch('addRecord', { record, title });
+      await this.$store.dispatch('updateRecord', { record });
     },
 
 

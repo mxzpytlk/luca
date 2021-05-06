@@ -1,10 +1,8 @@
 import { ApiHref } from '@/core/enums/api.enum';
-import { LocalStorageKey } from '@/core/enums/local-storage-key';
 import { IRecord } from '@/core/interfaces/record';
 import { ISector } from '@/core/interfaces/sector.interface';
 import { get, post, remove } from '@/core/utills/api.utills';
 import { flatArr } from '@/core/utills/array.utills';
-import { setInLocalStorage } from '@/core/utills/local-storage.utills';
 
 export default {
   state: {
@@ -116,13 +114,20 @@ export default {
       const id = res?.data?.id;
       commit('pushRecord', { title, record, id });
     },
+
+
     async deleteSectors({ commit }: any,  sectors: ISector[]) {
       const removeIds = new Set(sectors.map((sector) => sector.id));
-      const res = await remove(ApiHref.DELETE_SECTOR, {
+      await remove(ApiHref.DELETE_SECTOR, {
         removeIds: Array.from(removeIds),
       });
       commit('removeSectors', sectors);
     },
+
+    async updateRecord({ }: any, record: IRecord) {
+      const res = await post(ApiHref.UPDATE_RECORD, record);
+    },
+
     async removeRecord({commit}: any, record: IRecord) {
       commit('removeRecord', record);
     },

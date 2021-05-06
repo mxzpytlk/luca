@@ -31,7 +31,6 @@
 import './new-note.scss';
 import VueyeDatepicker from 'vueye-datepicker';
 import { IRecord } from '@/core/interfaces/record';
-import { generateId } from '@/core/utills/random.utills';
 
 export default {
   data() {
@@ -46,7 +45,7 @@ export default {
 
     async addRecord() {
       const record = {
-        id: generateId(),
+        id: undefined,
         text: this.text,
         executionDate: this.date.value,
         executionPlanTime: this.planedTime,
