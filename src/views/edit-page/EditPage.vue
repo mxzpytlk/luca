@@ -24,7 +24,7 @@
         :process-style="{ backgroundColor: 'red', }"
       >
       </vue-range-slider>
-      <textarea class="edit__text" placeholder="Here should be record" v-model="text"/>
+      <textarea class="edit__text" :placeholder="'here_should_record' | locale" v-model="text"/>
       <input type="submit" :value="'edit' | locale" class="edit__btn">
     </form>
   </div>

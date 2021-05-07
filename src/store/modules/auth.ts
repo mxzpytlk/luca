@@ -11,9 +11,7 @@ export default {
   },
   mutations: {
 
-
     auth_success(state: any, auth: { token: string, name: string, id: string }) {
-      state.status = 'success';
       state.token = auth.token;
       state.name = auth.name;
       state.userId = auth.id;
@@ -21,7 +19,6 @@ export default {
 
 
     logout(state: any) {
-      state.status = '';
       state.token = '';
       state.name = '';
     },
@@ -30,7 +27,6 @@ export default {
 
   getters: {
     isLoggedIn: (state: any) => !!state.token,
-    authStatus: (state: any) => state.status,
     name: (state: any) => state.name,
     userId: (state: any) => state.id,
   },

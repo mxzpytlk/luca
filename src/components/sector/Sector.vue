@@ -53,10 +53,6 @@ export default {
   computed: mapGetters(['isImportant']),
   methods: {
 
-    isRecordToday(record) {
-      return this.$store.getters.filterDate.toDateString() === record?.executionDate?.toDateString();
-    },
-
 
     async changeRecordDateToday(record) {
       record.executionDate = this.$store.getters.filterDate;

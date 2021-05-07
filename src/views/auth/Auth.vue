@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="auth__container">
     <div class="auth">
       <span class="auth__logo">
         LUCA

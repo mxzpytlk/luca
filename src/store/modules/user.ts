@@ -1,7 +1,6 @@
 import { ApiHref } from '@/core/enums/api.enum';
 import { LocalStorageKey } from '@/core/enums/local-storage-key';
 import { post } from '@/core/utills/api.utills';
-import { setInLocalStorage } from '@/core/utills/local-storage.utills';
 
 export default {
   state: {

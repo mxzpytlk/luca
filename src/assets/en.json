@@ -16,5 +16,6 @@
   "new_pass": "New password",
   "repeat_pass": "Repeat password",
   "pass_are_diff": "Passwords are different",
-  "incorrect_pass": "Incorrect password"
+  "incorrect_pass": "Incorrect password",
+  "here_should_record": "Here should be record"
 }

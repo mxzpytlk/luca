@@ -17,11 +17,6 @@ import './day-plan.scss';
 import KProgress from 'k-progress';
 
 export default {
-  data() {
-    return {
-      value: 50,
-    };
-  },
   computed: mapGetters(['todayRecords']),
   methods: {
     getPercent(record) {

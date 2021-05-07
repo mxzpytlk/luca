@@ -3,6 +3,7 @@
     <div class="band__autocomplete">
       <vue-simple-suggest
         @select="selectRecord($event)"
+        :placeholder="'enter_sector_title' | locale"
         v-model="recordLookingFor"
         :list="simpleSuggestionList"
         :filter-by-query="true"

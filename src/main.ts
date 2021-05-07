@@ -12,6 +12,7 @@ import VueComp from '@vue/composition-api';
 import { filterDate } from './core/filters/date.filter';
 import { filterTime } from './core/filters/time.filter';
 import { localeFilter } from './core/filters/locale.filter';
+import { LocalStorageKey } from './core/enums/local-storage-key';
 
 library.add(faBars, faFontAwesome, faEye, faCaretDown, faWindowClose, faArrowAltCircleRight, faSignOutAlt);
 
@@ -26,7 +27,7 @@ new Vue({
 }).$mount('#app');
 
 Vue.prototype.$http = Axios;
-const token = localStorage.getItem('token');
+const token = localStorage.getItem(LocalStorageKey.TOKEN);
 if (token) {
   Vue.prototype.$http.defaults.headers.common.Authorization = token;
 }

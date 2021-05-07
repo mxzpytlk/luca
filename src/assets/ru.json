@@ -16,5 +16,6 @@
   "new_pass": "Новый пароль",
   "repeat_pass": "Повторите пароль",
   "pass_are_diff": "Пароли не совпадают",
-  "incorrect_pass": "Неверный пароль"
+  "incorrect_pass": "Неверный пароль",
+  "here_should_record": "Здесь должна быть запись"
 }

@@ -59,7 +59,7 @@ export default {
   computed: {
     ...mapGetters(['name']),
     isAcount() {
-      return this.$route.path === `${RouterPath.MAIN}/${RouterPath.ACOUNT}`;
+      return this.$route.path.endsWith(RouterPath.ACOUNT);
     },
   },
   methods: {
@@ -89,6 +89,7 @@ export default {
           pass.pass = '';
         }
         this.changeFormVisibility();
+        this.errorText = '';
       } catch (e) {
         this.errorText = e?.message;
       }
