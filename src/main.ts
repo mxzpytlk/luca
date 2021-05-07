@@ -5,7 +5,16 @@ import router from './router';
 import store from './store';
 import Axios from 'axios';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faBars, faEye, faCaretDown, faWindowClose, faArrowAltCircleRight, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBars,
+  faEye,
+  faCaretDown,
+  faWindowClose,
+  faArrowAltCircleRight,
+  faSignOutAlt,
+  faPauseCircle,
+  faClock,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faFontAwesome } from '@fortawesome/free-brands-svg-icons';
 import VueComp from '@vue/composition-api';
@@ -14,7 +23,17 @@ import { filterTime } from './core/filters/time.filter';
 import { localeFilter } from './core/filters/locale.filter';
 import { LocalStorageKey } from './core/enums/local-storage-key';
 
-library.add(faBars, faFontAwesome, faEye, faCaretDown, faWindowClose, faArrowAltCircleRight, faSignOutAlt);
+library.add(
+  faBars,
+  faFontAwesome,
+  faEye,
+  faCaretDown,
+  faWindowClose,
+  faArrowAltCircleRight,
+  faSignOutAlt,
+  faPauseCircle,
+  faClock,
+);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

@@ -1,4 +1,4 @@
-import { IRecord } from '@/core/interfaces/record';
+import { IRecord } from '@/core/interfaces/record.interface';
 import recordsStore from './records';
 
 export default {

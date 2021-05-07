@@ -78,9 +78,21 @@
       padding: 5px 0;
     }
 
+    &_right {
+      max-width: 45%;
+      min-width: 45%;
+      display: flex;
+      align-items: center;
+    }
+
     &_progress {
-      max-width: 40%;
-      min-width: 40%;
+      min-width: calc(100% - 23px);
+      margin-right: 0 !important;
+      margin-bottom: 0 !important;
+    }
+
+    &_icon {
+      color: rgb(163, 163, 163);
     }
   }
 }

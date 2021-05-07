@@ -20,4 +20,9 @@
   padding: 5px;
   text-align: center;
   cursor: pointer;
+
+  &:disabled {
+    background-color: #818285;
+    cursor: default;
+  }
 }

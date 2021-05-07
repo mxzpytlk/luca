@@ -39,7 +39,7 @@
 </template>
 
 <script lang="js">
-import { IRecord } from '@/core/interfaces/record';
+import { IRecord } from '@/core/interfaces/record.interface';
 import './sector.scss';
 import { mapGetters } from 'vuex';
 

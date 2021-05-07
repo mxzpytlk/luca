@@ -29,7 +29,7 @@
 <script lang="js">
 import './new-note.scss';
 import VueyeDatepicker from 'vueye-datepicker';
-import { IRecord } from '@/core/interfaces/record';
+import { IRecord } from '@/core/interfaces/record.interface';
 
 export default {
   data() {
@@ -46,6 +46,7 @@ export default {
         id: undefined,
         text: this.text,
         executionPlanTime: this.planedTime,
+        executionIntervals: [],
       };
 
       await this.$store.dispatch('addRecord', { record, title: this.title });

@@ -1,5 +1,5 @@
 import { ApiHref } from '@/core/enums/api.enum';
-import { IRecord } from '@/core/interfaces/record';
+import { IRecord } from '@/core/interfaces/record.interface';
 import { ISector } from '@/core/interfaces/sector.interface';
 import { post, remove } from '@/core/utills/api.utills';
 import { flatArr } from '@/core/utills/array.utills';
