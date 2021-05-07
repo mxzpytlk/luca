@@ -17,5 +17,6 @@
   "repeat_pass": "Повторите пароль",
   "pass_are_diff": "Пароли не совпадают",
   "incorrect_pass": "Неверный пароль",
-  "here_should_record": "Здесь должна быть запись"
+  "here_should_record": "Здесь должна быть запись",
+  "copy_previous_day": "Копировать план предыдущего дня"
 }

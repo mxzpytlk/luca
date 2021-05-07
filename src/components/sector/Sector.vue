@@ -70,7 +70,7 @@ export default {
 
 
     isRecordActive(record) {
-      return record.id === this.activeRecord?.id;
+      return record?.id === this.activeRecord?.id;
     },
 
 

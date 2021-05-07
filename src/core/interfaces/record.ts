@@ -1,7 +1,7 @@
 export interface IRecord {
   id: string;
   text: string;
-  executionDate: Date;
+  executionDate?: Date;
   executionPlanTime: number;
   executionTime?: number;
   _id?: string;

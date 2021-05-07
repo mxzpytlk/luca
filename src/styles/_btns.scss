@@ -1,0 +1,23 @@
+@import './color';
+
+.luca-btn {
+  color: white;
+  background-color: $azure;
+  border-radius: 5px;
+  border-width: 0;
+  min-height: 40px;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.luca-btn-delete {
+  color: white;
+  background-color: $pinkish-red;
+  border-radius: 5px;
+  border-width: 0;
+  min-height: 40px;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+}

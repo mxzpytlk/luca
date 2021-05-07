@@ -1,6 +1,11 @@
 <template>
   <div class="plan">
     <div class="plan__container">
+      <div class="plan__header">
+        <button class="luca-btn plan__copy" @click.prevent="copyPreviousDayPlan">
+          {{ 'copy_previous_day' | locale }}
+        </button>
+      </div>
       <div v-for="record in todayRecords" :key="record.id" class="plan__record">
         <span class="plan__record_text">
           {{ record.text }}
@@ -21,6 +26,10 @@ export default {
   methods: {
     getPercent(record) {
       return Math.round(((record.executionTime || 0) / record.executionPlanTime) * 100);
+    },
+
+    async copyPreviousDayPlan() {
+      await this.$store.dispatch('copyPreviousDayPlan');
     },
   },
   components: { KProgress },

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import sector from './modules/sector';
+import recordsFilter from './modules/records-filter';
 import user from './modules/user';
 import auth from './modules/auth';
 
@@ -15,5 +15,5 @@ export default new Vuex.Store({
   },
   actions: {
   },
-  modules: { sector, user, auth },
+  modules: { recordsFilter, user, auth },
 });

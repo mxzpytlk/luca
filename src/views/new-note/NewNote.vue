@@ -2,7 +2,6 @@
   <div class="container">
     <form class="form" @submit.prevent="addRecord">
       <input type="text" name="title" class="luca-input" :placeholder="'enter_sector_title' | locale" v-model="title" required>
-      <vueye-datepicker v-model="date" color="#4466ee" format="yyyy-mm-dd" />
       <div class="form__time">
         <label for="plan">
           {{ 'planed_time' | locale }}
@@ -15,7 +14,7 @@
         </div>
       </div>
       <textarea name="text" class="luca-input form__text" :placeholder="'enter_record' | locale" v-model="text" required/>
-      <input type="submit" :value="'add_note' | locale" class="form__btn">
+      <input type="submit" :value="'add_note' | locale" class="form__btn luca-btn">
       <font-awesome-icon
         icon="window-close"
         size="2x"
@@ -37,7 +36,6 @@ export default {
     return {
       title: '',
       text: '',
-      date: new Date(),
       planedTime: 0,
     };
   },
@@ -47,7 +45,6 @@ export default {
       const record = {
         id: undefined,
         text: this.text,
-        executionDate: this.date.value,
         executionPlanTime: this.planedTime,
       };
 

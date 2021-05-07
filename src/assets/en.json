@@ -17,5 +17,6 @@
   "repeat_pass": "Repeat password",
   "pass_are_diff": "Passwords are different",
   "incorrect_pass": "Incorrect password",
-  "here_should_record": "Here should be record"
+  "here_should_record": "Here should be record",
+  "copy_previous_day": "Copy previous day plan"
 }
