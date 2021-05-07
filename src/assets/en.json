@@ -18,5 +18,6 @@
   "pass_are_diff": "Passwords are different",
   "incorrect_pass": "Incorrect password",
   "here_should_record": "Here should be record",
-  "copy_previous_day": "Copy previous day plan"
+  "copy_previous_day": "Copy previous day plan",
+  "delete_from_today": "Delete from today plan"
 }

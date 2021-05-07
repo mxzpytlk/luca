@@ -78,7 +78,13 @@ export default {
       commit('removeRecord', record);
     },
 
-    async copyPreviousDayPlan({ getters }: any) {
+
+    async updateRecords({}, records: IRecord[]) {
+      await post(ApiHref.UPDATE_RECORDS, { records });
+    },
+
+
+    async copyPreviousDayPlan({ getters, dispatch }: any) {
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
       const changedRecords: IRecord[] = getters.allRecords
@@ -86,7 +92,8 @@ export default {
       changedRecords.forEach((record) => {
         record.executionDate = new Date();
       });
-      await post(ApiHref.UPDATE_RECORDS, { records: changedRecords });
+
+      await dispatch('updateRecords', changedRecords);
     },
 
   },

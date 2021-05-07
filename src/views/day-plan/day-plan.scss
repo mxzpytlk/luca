@@ -39,6 +39,11 @@
     max-width: 170px;
   }
 
+  &__delete {
+    max-width: 170px;
+    margin-left: auto;
+  }
+
   &__record {
     min-height: 50px;
     display: flex;
