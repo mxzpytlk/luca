@@ -70,12 +70,23 @@ export default {
     },
 
     async updateRecord({ }: any, record: IRecord) {
-      await post(ApiHref.UPDATE_RECORD, { record });
+      await post(ApiHref.UPDATE_RECORDS, { records: [record] });
     },
 
     async removeRecord({commit}: any, record: IRecord) {
       await remove(ApiHref.DELETE_RECORD, record );
       commit('removeRecord', record);
+    },
+
+    async copyPreviousDayPlan({ getters }: any) {
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const changedRecords: IRecord[] = getters.allRecords
+        .filter((record: IRecord) => yesterday.toDateString() === record.executionDate?.toDateString());
+      changedRecords.forEach((record) => {
+        record.executionDate = new Date();
+      });
+      await post(ApiHref.UPDATE_RECORDS, { records: changedRecords });
     },
 
   },

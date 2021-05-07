@@ -20,6 +20,10 @@ export default {
   getters: {
     filterDate: (state: any): Date => state.filterDate,
 
+    isToday(state: any): boolean {
+      return new Date().toDateString() === state.filterDate.toDateString();
+    },
+
     todayRecords(state: any, getters: any): IRecord[] {
       const records = getters.allRecords;
       return records
