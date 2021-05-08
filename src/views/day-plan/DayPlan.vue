@@ -39,11 +39,11 @@
 </template>
 
 <script>
-// TODO Реализовать вывод ошибок пользователю
 import { mapActions, mapGetters } from 'vuex';
 import './day-plan.scss';
 import KProgress from 'k-progress';
 import draggable from 'vuedraggable';
+import { hoursBetweenDates } from '../../core/utills/date-time.utills';
 
 export default {
   data() {
@@ -116,6 +116,7 @@ export default {
         const idx = ints.length - 1;
         ints[idx].end = new Date();
         ints.splice(idx, 1, ints[idx]);
+        record.executionTime += hoursBetweenDates(new Date(ints[idx].start), ints[idx].end);
       }
 
       await this.$store.dispatch('updateRecord', record);
