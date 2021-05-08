@@ -14,6 +14,9 @@
         </div>
       </div>
       <textarea name="text" class="luca-input form__text" :placeholder="'enter_record' | locale" v-model="text" required/>
+      <div class="luca-error">
+        {{ errText | locale }}
+      </div>
       <input type="submit" :value="'add_note' | locale" class="form__btn luca-btn">
       <font-awesome-icon
         icon="window-close"
@@ -37,21 +40,26 @@ export default {
       title: '',
       text: '',
       planedTime: 0,
+      errText: '',
     };
   },
   methods: {
 
     async addRecord() {
-      const record = {
-        id: undefined,
-        text: this.text,
-        executionPlanTime: this.planedTime,
-        executionIntervals: [],
-      };
+      try {
+        const record = {
+          id: undefined,
+          text: this.text,
+          executionPlanTime: this.planedTime,
+          executionIntervals: [],
+        };
 
-      await this.$store.dispatch('addRecord', { record, title: this.title });
-      this.title = '';
-      this.text = '';
+        await this.$store.dispatch('addRecord', { record, title: this.title });
+        this.title = '';
+        this.text = '';
+      } catch (e) {
+        this.errText = e.message;
+      }
     },
 
     closeForm() {

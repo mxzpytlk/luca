@@ -13,6 +13,9 @@
           {{ 'delete_from_today' | locale }}
         </button>
       </div>
+      <div class="plan__error luca-error">
+        {{ errText | locale }}
+      </div>
       <draggable>
         <div
           v-for="record in records"
@@ -36,17 +39,18 @@
 </template>
 
 <script>
+// TODO Реализовать вывод ошибок пользователю
 import { mapActions, mapGetters } from 'vuex';
 import './day-plan.scss';
 import KProgress from 'k-progress';
 import draggable from 'vuedraggable';
-import { IRecord } from '@/core/interfaces/record.interface';
 
 export default {
   data() {
     return {
       selectedRecords: [],
       recordsShow: undefined,
+      errText: '',
     };
   },
   computed: {
@@ -103,6 +107,10 @@ export default {
       const lastInt = ints[ints.length - 1]?.end;
 
       if (lastInt || ints.length === 0) {
+        if (record.executionDate.toDateString() !== new Date().toDateString()) {
+          this.errText = 'not_today';
+          return;
+        }
         ints.push({ start: new Date() });
       } else {
         const idx = ints.length - 1;

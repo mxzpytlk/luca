@@ -19,5 +19,7 @@
   "incorrect_pass": "Incorrect password",
   "here_should_record": "Here should be record",
   "copy_previous_day": "Copy previous day plan",
-  "delete_from_today": "Delete from plan"
+  "delete_from_today": "Delete from plan",
+  "not_today": "Can't start coutdown on task which is not today",
+  "executionPlanTime_empty": "You must indicate the planned time"
 }

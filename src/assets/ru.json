@@ -19,5 +19,7 @@
   "incorrect_pass": "Неверный пароль",
   "here_should_record": "Здесь должна быть запись",
   "copy_previous_day": "Копировать план предыдущего дня",
-  "delete_from_today": "Удалить из плана"
+  "delete_from_today": "Удалить из плана",
+  "not_today": "Нельзя начать выполнять задачу без сегодняшней даты",
+  "executionPlanTime_empty": "Необходимо указать планируемое время"
 }
