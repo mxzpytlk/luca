@@ -16,6 +16,7 @@ export default {
         if (curRecordIdx >= 0) {
           curSector.records[curRecordIdx] = data.record;
         } else {
+          data.record.id = data.id;
           curSector.records.push(data.record);
         }
       } else {
