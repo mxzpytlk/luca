@@ -38,8 +38,9 @@
   </div>
 </template>
 
-<script lang="js">
+<script lang="ts">
 import { IRecord } from '@/core/interfaces/record.interface';
+import { ISectorComp } from './sector-component.interface';
 import './sector.scss';
 import { mapGetters } from 'vuex';
 
@@ -53,29 +54,32 @@ export default {
   computed: mapGetters(['isImportant']),
   methods: {
 
-
-    async changeRecordDateToday(record) {
-      record.executionDate = this.$store.getters.filterDate;
-      await this.$store.dispatch('updateRecord', record );
+    async changeRecordDateToday(record: IRecord) {
+      const sectorComp = this as unknown as ISectorComp;
+      record.executionDate = sectorComp.$store.getters.filterDate;
+      await sectorComp.$store.dispatch('updateRecord', record );
     },
 
 
-    makeRecordActive(record) {
-      if (this.activeRecord?.id === record.id) {
-        this.$emit('openMenu', null);
+    makeRecordActive(record: IRecord) {
+      const sectorComp = this as unknown as ISectorComp;
+      if (sectorComp.activeRecord?.id === record.id) {
+        sectorComp.$emit('openMenu', null);
         return;
       }
-      this.$emit('openMenu', record);
+      sectorComp.$emit('openMenu', record);
     },
 
 
-    isRecordActive(record) {
-      return record?.id === this.activeRecord?.id;
+    isRecordActive(record: IRecord) {
+      const sectorComp = this as unknown as ISectorComp;
+      return record?.id === sectorComp.activeRecord?.id;
     },
 
 
-    async deleteRecord(record) {
-      this.$store.dispatch('removeRecord', record);
+    async deleteRecord(record: IRecord) {
+      const sectorComp = this as unknown as ISectorComp;
+      sectorComp.$store.dispatch('removeRecord', record);
     },
 
   },

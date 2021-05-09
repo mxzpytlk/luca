@@ -32,11 +32,12 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { RouterPath } from '@/core/enums/router-path';
-import PassInput from '../pass-input/PassInput';
+import PassInput from '../pass-input/PassInput.vue';
 import './acount.scss';
 import { mapGetters } from 'vuex';
+import { IAcount } from './acount.interface';
 
 export default {
   data() {
@@ -56,44 +57,53 @@ export default {
       }],
     };
   },
+
   computed: {
     ...mapGetters(['name']),
-    isAcount() {
-      return this.$route.path.endsWith(RouterPath.ACOUNT);
+    isAcount(): boolean {
+      const acount = this as unknown as IAcount;
+      return acount.$route.path.endsWith(RouterPath.ACOUNT);
     },
   },
+
   methods: {
-    close() {
-      this.$router.push(RouterPath.MAIN);
+    close(): void {
+      const acount = this as unknown as IAcount;
+      acount.$router.push(RouterPath.MAIN);
     },
-    changeFormVisibility() {
-      this.showForm = !this.showForm;
+
+    changeFormVisibility(): void {
+      const acount = this as unknown as IAcount;
+      acount.showForm = !acount.showForm;
     },
-    async logout() {
+
+    async logout(): Promise<void> {
+      const acount = this as unknown as IAcount;
       if (confirm('Are you sure you want to leave your acount')) {
-        await this.$store.dispatch('logout');
-        this.$router.push(RouterPath.AUTH);
+        await acount.$store.dispatch('logout');
+        acount.$router.push(RouterPath.AUTH);
       }
     },
 
-
-    async changePass() {
-      const [oldPass, newPass, repeatPass] = this.passField.map((field) => field.pass);
+    async changePass(): Promise<void> {
+      const acount = this as unknown as IAcount;
+      const [oldPass, newPass, repeatPass] = acount.passField.map((field) => field.pass);
       if (newPass !== repeatPass) {
-        this.errorText = 'pass_are_diff';
+        acount.errorText = 'pass_are_diff';
         return;
       }
       try {
-        await this.$store.dispatch('changePass', { oldPass, newPass });
-        for (const pass of this.passField) {
+        await acount.$store.dispatch('changePass', { oldPass, newPass });
+        for (const pass of acount.passField) {
           pass.pass = '';
         }
         this.changeFormVisibility();
-        this.errorText = '';
+        acount.errorText = '';
       } catch (e) {
-        this.errorText = e?.message;
+        acount.errorText = e?.message;
       }
     },
+
   },
   components: { PassInput },
 };

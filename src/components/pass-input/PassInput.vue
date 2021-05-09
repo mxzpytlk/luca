@@ -11,8 +11,9 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import './pass-input.scss';
+import { IPassInput } from './pass-input.interface';
 
 export default {
   data() {
@@ -22,9 +23,10 @@ export default {
     };
   },
   methods: {
-    changePassVisibility() {
-      this.inputType = this.inputType === 'password' ? 'text' : 'password';
-      this.key += 1;
+    changePassVisibility(): void {
+      const passInput = this as NonNullable<IPassInput>;
+      passInput.inputType = passInput.inputType === 'password' ? 'text' : 'password';
+      passInput.key += 1;
     },
   },
   props: ['placeholder', 'value'],

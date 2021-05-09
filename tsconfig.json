@@ -29,7 +29,8 @@
       "dom.iterable",
       "scripthost"
     ],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "noImplicitAny": false
   },
   "include": [
     "src/**/*.ts",
@@ -40,5 +41,9 @@
   ],
   "exclude": [
     "node_modules"
+  ],
+  "typeRoots": [
+    "./src/core/typings",
+    "./node_modules/@types/"
   ]
 }

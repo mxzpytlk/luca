@@ -10,7 +10,7 @@
       />
     </div>
     <div class="band__container">
-      <draggable v-model="sectors">
+      <draggable v-model="bandSectors">
         <sector
           v-for="sector in sectors" :key="sector.id"
           v-bind:sector="sector"
@@ -23,13 +23,16 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import './band.scss';
+import { IBand } from './band.interface';
 import 'vue-simple-suggest/dist/styles.css';
-import Sector from '../sector/Sector';
+import Sector from '../sector/Sector.vue';
 import draggable from 'vuedraggable';
 import VueSimpleSuggest from 'vue-simple-suggest';
 import { mapGetters } from 'vuex';
+import { ISector } from '@/core/interfaces/sector.interface';
+import { IRecord } from '@/core/interfaces/record.interface';
 
 export default {
   data() {
@@ -39,37 +42,42 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['allRecords']),
-    sectors: {
-      get() {
-        return this.$store.getters.sectors;
+    ...mapGetters(['allRecords', 'sectors']),
+    bandSectors: {
+      get(): ISector[] {
+        const band = this as unknown as IBand;
+        return band.sectors;
       },
-      set(sectors) {
-        this.$store.dispatch('updateSectors', sectors);
+      set(sectors: ISector[]): void {
+        const band = this as unknown as IBand;
+        band.$store.dispatch('updateSectors', sectors);
       },
     },
-    recordsText() {
-      return this.allRecords.map((record) => record?.text);
+    recordsText(): string[] {
+      const band = this as unknown as IBand;
+      return band.allRecords.map((record) => record?.text);
     },
   },
   methods: {
-    makeRecordActive(record) {
-      this.activeRecord = record;
+    makeRecordActive(record: IRecord): void {
+      const band = this as unknown as IBand;
+      band.activeRecord = record;
     },
 
-    selectRecord(recordText) {
-      const sectorComponents = this.$refs.sectors;
-      const records = [];
+    selectRecord(recordText: string): void {
+      const band = this as unknown as IBand;
+      const sectorComponents = band.$refs.sectors;
+      const records: IRecord[] = [];
 
       for (const component of sectorComponents) {
-        const sector = component.sector;
+        const sector: ISector = component.sector;
         const componentRecords = sector.records.filter((record) => record.text === recordText);
         if (componentRecords.length > 0) {
           component.isRecords = true;
         }
         records.push(...componentRecords);
       }
-      this.$store.commit('makeRecordsImportant', records);
+      band.$store.commit('makeRecordsImportant', records);
     },
   },
   components: { Sector, draggable, VueSimpleSuggest },

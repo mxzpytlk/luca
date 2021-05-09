@@ -16,17 +16,19 @@
     <menu-bar v-if="hasMenu" />
     <h2 class="app__title">LUCA</h2>
     <div>
-      <span class="nav__locale" @click.prevent="setEn">en</span>
+      <span class="nav__locale" @click.prevent="setLocale('en')">en</span>
       <span>/</span>
-      <span class="nav__locale" @click.prevent="setRu">ru</span>
+      <span class="nav__locale" @click.prevent="setLocale('ru')">ru</span>
     </div>
   </nav>
 </template>
 
-<script>
+<script lang="ts">
 import './navbar.scss';
-import MenuBar from '../menu-bar/MenuBar';
+import MenuBar from '../menu-bar/MenuBar.vue';
 import VueyeDatepicker from 'vueye-datepicker';
+import { INavbar } from './navbar.interface';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
@@ -36,19 +38,14 @@ export default {
     };
   },
   watch: {
-    date(from, to) {
-      this.$store.dispatch('chandgeDate', (to?.value || to));
+    date(from, to): void {
+      const band = this as unknown as INavbar;
+      band.$store.dispatch('chandgeDate', (to?.value || to));
     },
   },
 
   methods: {
-    async setEn() {
-      this.$store.dispatch('setLocale', 'en');
-    },
-
-    async setRu() {
-      this.$store.dispatch('setLocale', 'ru');
-    },
+    ...mapActions(['setLocale']),
   },
 
   components: { MenuBar, VueyeDatepicker },
