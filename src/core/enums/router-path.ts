@@ -9,4 +9,5 @@ export enum RouterPath {
   ACOUNT = 'acount',
   EDIT = 'edit/:id',
   PLAN = 'plan',
+  STATISTICS = 'statistics',
 }

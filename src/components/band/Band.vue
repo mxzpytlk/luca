@@ -5,7 +5,7 @@
         @select="selectRecord($event)"
         :placeholder="'enter_sector_title' | locale"
         v-model="recordLookingFor"
-        :list="simpleSuggestionList"
+        :list="recordsText"
         :filter-by-query="true"
       />
     </div>
@@ -48,14 +48,13 @@ export default {
         this.$store.dispatch('updateSectors', sectors);
       },
     },
+    recordsText() {
+      return this.allRecords.map((record) => record?.text);
+    },
   },
   methods: {
     makeRecordActive(record) {
       this.activeRecord = record;
-    },
-
-    simpleSuggestionList() {
-      return this.allRecords.map((record) => record?.text);
     },
 
     selectRecord(recordText) {

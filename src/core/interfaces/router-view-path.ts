@@ -18,7 +18,8 @@ export const viewPath: IRouterViewPath[] = [
   },
   {
     name: 'statistics',
-    path: RouterPath.MAIN,
+    path: RouterPath.STATISTICS,
+    fullPath: [RouterPath.MAIN, RouterPath.STATISTICS],
   },
   {
     name: 'delete_sector',

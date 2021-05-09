@@ -35,6 +35,10 @@ const routes: RouteConfig[] = [
         component: () => import('../views/day-plan/DayPlan.vue'),
       },
       {
+        path: RouterPath.STATISTICS,
+        component: () => import('../views/statistics/Statistics.vue'),
+      },
+      {
         path: '*',
         component: () => import('../views/day-plan/DayPlan.vue'),
       },

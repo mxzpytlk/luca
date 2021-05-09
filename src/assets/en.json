@@ -21,5 +21,6 @@
   "copy_previous_day": "Copy previous day plan",
   "delete_from_today": "Delete from plan",
   "not_today": "Can't start coutdown on task which is not today",
-  "executionPlanTime_empty": "You must indicate the planned time"
+  "executionPlanTime_empty": "You must indicate the planned time",
+  "enter_sector_record": "Write sector or record title"
 }

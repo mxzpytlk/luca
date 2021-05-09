@@ -7,7 +7,7 @@
           {{ 'planed_time' | locale }}
         </label>
         <div>
-          <input type="range" name="plan" min="0" max="10" step="0.25" v-model="planedTime" class="form__time_input">
+          <input type="range" name="plan" min="0.25" max="24" step="0.25" v-model="planedTime" class="form__time_input">
           <span>
             {{ planedTime | time}}
           </span>

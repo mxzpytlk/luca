@@ -91,7 +91,13 @@ export default {
       const record = this.record;
       record.executionDate = this.executionEnd.value;
       record.text = this.text;
-      record.executionTime = this.executionTime;
+      const diff = this.executionTime - record.executionTime;
+      if (diff > 0) {
+        const end = new Date();
+        const start = new Date(end.getTime() - diff * 60 * 60 * 1e3);
+        record.executionTime = this.executionTime;
+        record.executionIntervals.push({ start, end });
+      }
       await this.$store.dispatch('updateRecord', record);
       this.$router.push('/main');
     },
