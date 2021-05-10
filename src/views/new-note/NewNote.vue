@@ -29,10 +29,10 @@
 </template>
 
 
-<script lang="js">
+<script lang="ts">
 import './new-note.scss';
 import VueyeDatepicker from 'vueye-datepicker';
-import { IRecord } from '@/core/interfaces/record.interface';
+import { INewNote } from './new-note.interface';
 
 export default {
   data() {
@@ -45,25 +45,26 @@ export default {
   },
   methods: {
 
-    async addRecord() {
+    async addRecord(): Promise<void> {
+      const newNotePage = this as unknown as INewNote;
       try {
         const record = {
-          id: undefined,
-          text: this.text,
-          executionPlanTime: this.planedTime,
+          text: newNotePage.text,
+          executionPlanTime: newNotePage.planedTime,
           executionIntervals: [],
         };
 
-        await this.$store.dispatch('addRecord', { record, title: this.title });
-        this.title = '';
-        this.text = '';
+        await newNotePage.$store.dispatch('addRecord', { record, title: newNotePage.title });
+        newNotePage.title = '';
+        newNotePage.text = '';
       } catch (e) {
-        this.errText = e.message;
+        newNotePage.errText = e.message;
       }
     },
 
-    closeForm() {
-      this.$router.push('/main');
+    async closeForm(): Promise<void> {
+      const newNotePage = this as unknown as INewNote;
+      newNotePage.$router.push('/main');
     },
 
   },

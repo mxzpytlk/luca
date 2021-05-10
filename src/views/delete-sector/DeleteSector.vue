@@ -16,10 +16,11 @@
 </template>
 
 
-<script lang="js">
+<script lang="ts">
 import './delete-sector.scss';
 import { mapGetters } from 'vuex';
 import { ISector } from '@/core/interfaces/sector.interface';
+import { IDeleteSector } from './delete-sector.interface';
 
 export default {
   data() {
@@ -29,19 +30,24 @@ export default {
     };
   },
   methods: {
-    select(sector) {
-      if (this.removingSectors.has(sector)) {
-        this.removingSectors.delete(sector);
+    select(sector: ISector): void {
+      const deletePage = this as unknown as IDeleteSector;
+      if (deletePage.removingSectors.has(sector)) {
+        deletePage.removingSectors.delete(sector);
       } else {
-        this.removingSectors.add(sector);
+        deletePage.removingSectors.add(sector);
       }
-      this.key++;
+      deletePage.key++;
     },
-    isSectorRemoving(sector) {
-      return this.removingSectors.has(sector);
+
+    isSectorRemoving(sector: ISector): boolean {
+      const deletePage = this as unknown as IDeleteSector;
+      return deletePage.removingSectors.has(sector);
     },
-    async deleteSectors() {
-      await this.$store.dispatch('deleteSectors', Array.from(this.removingSectors));
+
+    async deleteSectors(): Promise<void> {
+      const deletePage = this as unknown as IDeleteSector;
+      await deletePage.$store.dispatch('deleteSectors', Array.from(deletePage.removingSectors));
     },
   },
   computed: mapGetters(['sectors']),

@@ -38,12 +38,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from 'vuex';
 import './day-plan.scss';
 import KProgress from 'k-progress';
 import draggable from 'vuedraggable';
 import { hoursBetweenDates } from '../../core/utills/date-time.utills';
+import { IDayPlan } from './day-plan.interface';
+import { IRecord } from '@/core/interfaces/record.interface';
 
 export default {
   data() {
@@ -57,58 +59,62 @@ export default {
     ...mapGetters(['todayRecords', 'isToday']),
 
     records: {
-      get() {
-        return this.recordsShow || this.todayRecords;
+      get(): IRecord[] {
+        const dayPlan = this as unknown as IDayPlan;
+        return dayPlan.recordsShow || dayPlan.todayRecords;
       },
-      set(records) {
-        this.recordsShow = records;
+      set(records: IRecord[]): void {
+        const dayPlan = this as unknown as IDayPlan;
+        dayPlan.recordsShow = records;
       },
     },
 
-    isRecordSelected() {
-      const selectedRecords = this.selectedRecords;
-      return (record) => new Set(selectedRecords).has(record);
+    isRecordSelected(): (record: IRecord) => boolean {
+      const dayPlan = this as unknown as IDayPlan;
+      const selectedRecords = dayPlan.selectedRecords;
+      return (record: IRecord) => new Set(selectedRecords).has(record);
     },
 
     isAnyRecordSelected() {
-      return this.selectedRecords.length > 0;
+      const dayPlan = this as unknown as IDayPlan;
+      return dayPlan.selectedRecords.length > 0;
     },
   },
   methods: {
     ...mapActions(['copyPreviousDayPlan']),
-    getPercent(record) {
+    getPercent(record: IRecord): number {
       return Math.round(((record.executionTime || 0) / record.executionPlanTime) * 100);
     },
 
-    async deleteFromToday() {
-      this.selectedRecords.forEach((record) => {
-        record.executionDate = null;
-      });
-      await this.$store.dispatch('updateRecords', this.selectedRecords);
+    async deleteFromToday(): Promise<void> {
+      const dayPlan = this as unknown as IDayPlan;
+      await dayPlan.$store.dispatch('updateRecords', dayPlan.selectedRecords);
     },
 
-    selectRecord(record) {
-      const recordIdx = this.selectedRecords.findIndex((item) => item.id === record.id);
+    selectRecord(record: IRecord): void {
+      const dayPlan = this as unknown as IDayPlan;
+      const recordIdx = dayPlan.selectedRecords.findIndex((item) => item.id === record.id);
       if (recordIdx === -1) {
-        this.selectedRecords.push(record);
+        dayPlan.selectedRecords.push(record);
       } else {
-        this.selectedRecords.splice(recordIdx, 1);
+        dayPlan.selectedRecords.splice(recordIdx, 1);
       }
-      this.$forceUpdate();
+      dayPlan.$forceUpdate();
     },
 
-    isStoped(record) {
+    isStoped(record: IRecord): boolean {
       const ints = record.executionIntervals;
-      return ints[ints.length - 1]?.end || ints.length === 0;
+      return !!ints[ints.length - 1]?.end || ints.length === 0;
     },
 
-    async changeCountdown(record) {
+    async changeCountdown(record: IRecord): Promise<void> {
+      const dayPlan = this as unknown as IDayPlan;
       const ints = record.executionIntervals;
       const lastInt = ints[ints.length - 1]?.end;
 
       if (lastInt || ints.length === 0) {
-        if (record.executionDate.toDateString() !== new Date().toDateString()) {
-          this.errText = 'not_today';
+        if (record.executionDate?.toDateString() !== new Date().toDateString()) {
+          dayPlan.errText = 'not_today';
           return;
         }
         ints.push({ start: new Date() });
@@ -116,10 +122,11 @@ export default {
         const idx = ints.length - 1;
         ints[idx].end = new Date();
         ints.splice(idx, 1, ints[idx]);
-        record.executionTime += hoursBetweenDates(new Date(ints[idx].start), ints[idx].end);
+        // TODO Избавиться от executionTime
+        record.executionTime += hoursBetweenDates(new Date(ints[idx].start), ints[idx].end as Date);
       }
 
-      await this.$store.dispatch('updateRecord', record);
+      await dayPlan.$store.dispatch('updateRecord', record);
     },
   },
   components: { KProgress, draggable },

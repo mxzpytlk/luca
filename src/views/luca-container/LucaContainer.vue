@@ -5,10 +5,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import './luca-container.scss';
-import Navbar from '../../components/navbar/Navbar';
-import Workspace from '../workspace/Workspace';
+import Navbar from '../../components/navbar/Navbar.vue';
+import Workspace from '../workspace/Workspace.vue';
 
 export default {
   components: { Navbar, Workspace },

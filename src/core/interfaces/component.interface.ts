@@ -9,4 +9,5 @@ export interface IComponent {
     [key: string]: any;
   };
   $emit: (eventName: string, event: any) => void;
+  $forceUpdate: () => void;
 }

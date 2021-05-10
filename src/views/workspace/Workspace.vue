@@ -7,20 +7,17 @@
     <acount />
   </div>
 </template>
-<script>
+
+<script lang="ts">
 import './workspace.scss';
-import Band from '../../components/band/Band';
-import Acount from '../../components/acount/Acount';
-import device from 'current-device';
+import Band from '../../components/band/Band.vue';
+import Acount from '../../components/acount/Acount.vue';
+import { IComponent } from '@/core/interfaces/component.interface';
 
 export default {
-  computed: {
-    isBand() {
-      return this.$route.path === '/main' || !device.mobile();
-    },
-  },
   async mounted() {
-    await this.$store.dispatch('loadRecords');
+    const workspace = this as unknown as IComponent;
+    await workspace.$store.dispatch('loadRecords');
   },
   components: { Band, Acount },
 };

@@ -6,28 +6,17 @@
       </span>
       <form class="auth__form" @submit.prevent="login">
         <input type="text" class="auth__input luca-input" name="login" placeholder="Login" v-model="name" autocomplete="on" />
-        <div class="auth__input" :key="key">
-          <input
-            v-bind:type="isPassVisible ? 'text' : 'password'"
-            class="auth__input luca-input"
-            name="pass"
-            placeholder="Password"
-            v-model="pass"
-            autocomplete="new-password"
-          />
-          <font-awesome-icon icon="eye" class="auth__icon_eye" @click.prevent="changePassVisibility"/>
-        </div>
-        <div class="auth__input" v-if="isPathRegister" :key="keyRepeat">
-          <input
-            v-bind:type="isPassVisibleRepeat ? 'text' : 'password'"
-            class="auth__input luca-input"
-            name="pass"
-            placeholder="Repeat password"
-            v-model="repeatPass"
-            autocomplete="new-password"
-          />
-          <font-awesome-icon icon="eye" class="auth__icon_eye" @click.prevent="changePassVisibility(false)"/>
-        </div>
+        <pass-input
+          class="auth__input"
+          v-model="pass"
+          :placeholder="'Password'"
+        />
+        <pass-input
+          v-if="isPassRegister"
+          class="auth__input"
+          v-model="repeatPass"
+          :placeholder="'Repeat password'"
+        />
         <div class="auth__error">{{ errText }}</div>
         <input type="submit" class="auth__submit" v-bind:value="curActionName" />
       </form>
@@ -38,9 +27,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { RouterPath } from '@/core/enums/router-path';
 import './auth.scss';
+import PassInput from '../../components/pass-input/PassInput.vue';
+import { IAuthPage } from './auth-page.interface';
 
 export default {
   data() {
@@ -49,65 +40,50 @@ export default {
       pass: '',
       repeatPass: '',
       errText: '',
-      key: 1,
-      keyRepeat: 0,
-      isPassVisible: false,
-      isPassVisibleRepeat: false,
     };
   },
   computed: {
-    isPathRegister() {
-      return this.$route.path === RouterPath.REGISTER;
+    isPassRegister(): boolean {
+      const authPage = this as unknown as IAuthPage;
+      return authPage.$route.path === RouterPath.REGISTER;
     },
-    curActionName() {
-      return this.isPathRegister ? 'register' : 'entry';
+
+    curActionName(): 'register' | 'entry' {
+      const authPage = this as unknown as IAuthPage;
+      return authPage.isPassRegister ? 'register' : 'entry';
     },
-    otherActionName() {
-      return this.isPathRegister ? 'entry' : 'register';
+
+    otherActionName(): 'register' | 'entry' {
+      const authPage = this as unknown as IAuthPage;
+      return authPage.isPassRegister ? 'entry' : 'register';
     },
   },
   methods: {
-    login() {
-      const path = this.$route.path;
-      const loginAction = path === RouterPath.REGISTER ? 'register' : 'login';
+    async login(): Promise<void> {
+      const authPage = this as unknown as IAuthPage;
+      const loginAction = authPage.isPassRegister ? 'register' : 'login';
 
-      if (loginAction === 'register' && this.pass !== this.repeatPass) {
-        this.errText = 'Passwords are different';
+      if (loginAction === 'register' && authPage.pass !== authPage.repeatPass) {
+        authPage.errText = 'Passwords are different';
         return;
       }
 
       const data = {
-        name: this.name,
-        pass: this.pass,
+        name: authPage.name,
+        pass: authPage.pass,
       };
 
-      this.$store
-      .dispatch(loginAction, data)
-      .then(() => {
-        this.$router.push(this.isPathRegister ? RouterPath.AUTH : RouterPath.MAIN);
-        this.name = '';
-        this.pass = '';
-        this.errText = '';
-      })
-      // tslint:disable-next-line: no-console
-      .catch((err) => {
-        this.errText = err.message;
-        // tslint:disable-next-line: no-console
-        console.trace();
-        // tslint:disable-next-line: no-console
-        console.error(err);
-      });
-    },
-
-    changePassVisibility(pass = true) {
-      if (pass) {
-        this.isPassVisible = !this.isPassVisible;
-        this.key += 1;
-      } else {
-        this.isPassVisibleRepeat = !this.isPassVisibleRepeat;
-        this.keyRepeat -= 1;
+      try {
+        await authPage.$store.dispatch(loginAction, data);
+        await authPage.$router.push(authPage.isPassRegister ? RouterPath.AUTH : RouterPath.MAIN);
+        authPage.name = '';
+        authPage.pass = '';
+        authPage.errText = '';
+      } catch (err) {
+        authPage.errText = err.message;
       }
     },
   },
+  components: { PassInput },
 };
 </script>

@@ -2,8 +2,13 @@ export interface IRecord {
   id: string;
   text: string;
   executionPlanTime: number;
-  executionIntervals: Array<{ start: Date, end: Date}>;
+  executionIntervals: IInterval[];
   executionDate?: Date;
-  executionTime?: number;
+  executionTime: number;
   _id?: string;
+}
+
+export interface IInterval {
+  start: Date;
+  end?: Date;
 }

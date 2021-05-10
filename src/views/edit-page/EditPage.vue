@@ -30,11 +30,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import './edit-page.scss';
 import 'vue-range-component/dist/vue-range-slider.css';
 import VueRangeSlider from 'vue-range-component';
 import VueyeDatepicker from 'vueye-datepicker';
+import { IEditPage } from './edit-page.interface';
+import { IRecord } from '@/core/interfaces/record.interface';
 
 export default {
   data() {
@@ -45,64 +47,80 @@ export default {
     };
   },
   computed: {
-    record() {
-      return this.$store.getters.record(this.$route.params?.id);
+    record(): IRecord {
+      const editPage = this as unknown as IEditPage;
+      return editPage.$store.getters.record(editPage.$route.params?.id);
     },
-    sectorTitle() {
-      return this.$store.getters.sectorTitle(this.record?.id);
+
+    sectorTitle(): string {
+      const editPage = this as unknown as IEditPage;
+      return editPage.$store.getters.sectorTitle(editPage.record?.id);
     },
-    executionPlanTime() {
-      return +this.record?.executionPlanTime;
+
+    executionPlanTime(): number {
+      const editPage = this as unknown as IEditPage;
+      return +editPage.record?.executionPlanTime;
     },
     text: {
-      get() {
-        if (this.editableText === '') {
+      get(): string {
+        const editPage = this as unknown as IEditPage;
+        if (editPage.editableText === '') {
           return '';
         }
 
-        return this.editableText || this.record?.text;
+        return editPage.editableText || editPage.record?.text;
       },
-      set(text) {
-        this.editableText = text;
+      set(text: string): void {
+        const editPage = this as unknown as IEditPage;
+        editPage.editableText = text;
       },
     },
+
     executionTime: {
-      get() {
-        if (this.editableTime === 0) {
+      get(): number {
+        const editPage = this as unknown as IEditPage;
+        if (editPage.editableTime === 0) {
           return 0;
         }
-        return this.editableTime || this.record?.executionTime || 0;
+        return editPage.editableTime || editPage.record?.executionTime || 0;
       },
-      set(newTime) {
-        this.editableTime = newTime;
+
+      set(newTime: number): void {
+        const editPage = this as unknown as IEditPage;
+        editPage.editableTime = newTime;
       },
     },
     executionEnd: {
-      get() {
-        return this.editableDate || this.record?.executionDate || new Date();
+      get(): Date | { value: Date } {
+        const editPage = this as unknown as IEditPage;
+        return editPage.editableDate || editPage.record?.executionDate || new Date();
       },
-      set(newDate) {
-        this.editableDate = newDate;
+      set(newDate: Date): void {
+        const editPage = this as unknown as IEditPage;
+        editPage.editableDate = newDate;
       },
     },
   },
   methods: {
-    async edit() {
-      const record = this.record;
-      record.executionDate = this.executionEnd.value;
-      record.text = this.text;
-      const diff = this.executionTime - record.executionTime;
+    async edit(): Promise<void> {
+      const editPage = this as unknown as IEditPage;
+      const record = editPage.record;
+      record.executionDate = editPage.executionEnd.value;
+      record.text = editPage.text;
+      const diff = editPage.executionTime - record.executionTime;
       if (diff > 0) {
         const end = new Date();
         const start = new Date(end.getTime() - diff * 60 * 60 * 1e3);
-        record.executionTime = this.executionTime;
+        record.executionTime = editPage.executionTime;
         record.executionIntervals.push({ start, end });
       }
-      await this.$store.dispatch('updateRecord', record);
-      this.$router.push('/main');
+      await editPage.$store.dispatch('updateRecord', record);
+      await editPage.$router.push('/main');
     },
-    closeForm() {
-      this.$router.push('/main');
+
+    async closeForm(): Promise<void> {
+      const editPage = this as unknown as IEditPage;
+      await editPage.$router.push('/main');
     },
   },
   created() {

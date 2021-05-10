@@ -11,10 +11,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import './statistics.scss';
 import VueSimpleSuggest from 'vue-simple-suggest';
 import { mapGetters } from 'vuex';
+import { IStatistics } from './statistics.interface';
 
 export default {
   data() {
@@ -24,9 +25,10 @@ export default {
   },
   computed: {
     ...mapGetters(['sectors']),
-    suggestionTexts() {
-      const names = [];
-      for (const sector of this.sectors) {
+    suggestionTexts(): string[] {
+      const statistics = this as unknown as IStatistics;
+      const names: string[] = [];
+      for (const sector of statistics.sectors) {
         names.push(sector.title);
         for (const record of sector.records) {
           names.push(record.text);
