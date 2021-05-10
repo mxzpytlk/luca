@@ -4,12 +4,9 @@
   height: calc(100% - #{$navbar-height});
   width: 100%;
   display: flex;
-}
 
-@media (max-width: $max-width-mobile) {
-  .workspace {
+  &__container {
+    display: flex;
     width: 100%;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
   }
 }
