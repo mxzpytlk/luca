@@ -4,7 +4,7 @@
       <band id="left"/>
       <router-view id="right"/>
     </div>
-    <slider :maxCount="2" ref="slider">
+    <slider :maxCount="2" ref="slider" v-if="isMobile">
       <band id="left"/>
       <router-view id="right"/>
     </slider>
@@ -37,7 +37,7 @@ export default {
     $route(from: Route, to: Route) {
       const workspace = this as unknown as IComponent;
       const slider = workspace.$refs.slider as ISlider;
-      if (from.path.endsWith(RouterPath.ACOUNT) || to.path.endsWith(RouterPath.ACOUNT)) {
+      if (from.path.endsWith(RouterPath.ACOUNT) || to.path.endsWith(RouterPath.ACOUNT) || !device.mobile()) {
         return;
       }
 
