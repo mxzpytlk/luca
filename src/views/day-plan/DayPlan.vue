@@ -43,7 +43,6 @@ import { mapActions, mapGetters } from 'vuex';
 import './day-plan.scss';
 import KProgress from 'k-progress';
 import draggable from 'vuedraggable';
-import { hoursBetweenDates } from '../../core/utills/date-time.utills';
 import { IDayPlan } from './day-plan.interface';
 import { IRecord } from '@/core/interfaces/record.interface';
 
@@ -83,6 +82,9 @@ export default {
   methods: {
     ...mapActions(['copyPreviousDayPlan']),
     getPercent(record: IRecord): number {
+      if (record.executionTime > record.executionPlanTime) {
+        return 100;
+      }
       return Math.round(((record.executionTime || 0) / record.executionPlanTime) * 100);
     },
 
@@ -122,8 +124,6 @@ export default {
         const idx = ints.length - 1;
         ints[idx].end = new Date();
         ints.splice(idx, 1, ints[idx]);
-        // TODO Избавиться от executionTime
-        record.executionTime += hoursBetweenDates(new Date(ints[idx].start), ints[idx].end as Date);
       }
 
       await dayPlan.$store.dispatch('updateRecord', record);

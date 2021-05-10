@@ -1,6 +1,7 @@
 import { ApiHref } from '@/core/enums/api.enum';
 import { IRecord } from '@/core/interfaces/record.interface';
 import { ISector } from '@/core/interfaces/sector.interface';
+import { Record } from '@/core/models/records';
 import { get, remove } from '@/core/utills/api.utills';
 
 export default {
@@ -12,11 +13,23 @@ export default {
     setSectors(state: any, sectors: ISector[]) {
       for (const sector of sectors) {
         sector.id =  sector?._id || sector.id;
-        for (const record of sector.records) {
-          if (!!record.executionDate) {
+
+        // tslint:disable-next-line: prefer-for-of
+        for (let i = 0; i < sector.records.length; i++) {
+          const record = sector.records[i];
+          if (record.executionDate) {
             record.executionDate = new Date(record.executionDate);
           }
-          record.id =  record?._id || record.id;
+          record.executionIntervals.map((int) => {
+            int.start = new Date(int.start);
+            if (int.end) {
+              int.end = new Date(int.end);
+            }
+            return int;
+          });
+          const { text, executionPlanTime, executionIntervals, executionDate } = record;
+          const id = record?._id || record.id;
+          sector.records[i] = new Record(id, text, executionPlanTime, executionIntervals, executionDate);
         }
       }
       state.sectors = sectors;

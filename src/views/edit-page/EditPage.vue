@@ -17,6 +17,7 @@
       <vue-range-slider
         ref="slider"
         width="50%"
+        :min="recordExecutionTime"
         :max="executionPlanTime"
         :step="0.25"
         v-model="executionTime"
@@ -79,10 +80,10 @@ export default {
     executionTime: {
       get(): number {
         const editPage = this as unknown as IEditPage;
-        if (editPage.editableTime === 0) {
+        if (editPage.record?.executionTime === 0) {
           return 0;
         }
-        return editPage.editableTime || editPage.record?.executionTime || 0;
+        return editPage.editableTime || editPage.record?.executionTime;
       },
 
       set(newTime: number): void {
@@ -100,6 +101,11 @@ export default {
         editPage.editableDate = newDate;
       },
     },
+
+    recordExecutionTime(): number {
+      const editPage = this as unknown as IEditPage;
+      return +editPage.record.executionTime.toFixed(2);
+    },
   },
   methods: {
     async edit(): Promise<void> {
@@ -111,7 +117,7 @@ export default {
       if (diff > 0) {
         const end = new Date();
         const start = new Date(end.getTime() - diff * 60 * 60 * 1e3);
-        record.executionTime = editPage.executionTime;
+        record.executionTime = editPage.executionTime - record.executionTime;
         record.executionIntervals.push({ start, end });
       }
       await editPage.$store.dispatch('updateRecord', record);
