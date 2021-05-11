@@ -8,7 +8,7 @@ import sectorStore from './sector';
 export default {
   mutations: {
 
-    pushRecord(state: any, data: { record: IRecord, title: string, id: string }) {
+    pushRecord(state: any, data: { record: IRecord, title: string, sectorId?: string }) {
       const sectors = (state.sectorStore.sectors as ISector[]);
       const curSector = sectors.find((item) => item.title === data.title);
       if (curSector) {
@@ -16,14 +16,13 @@ export default {
         if (curRecordIdx >= 0) {
           curSector.records[curRecordIdx] = data.record;
         } else {
-          data.record.id = data.id;
           curSector.records.push(data.record);
         }
       } else {
         sectors.push({
           title: data.title,
           records: [data.record],
-          id: data.id,
+          id: data.sectorId as string,
         });
       }
     },
@@ -66,8 +65,9 @@ export default {
       const { title, record } = data;
 
       const res = await post(ApiHref.ADD_RECORD, { title, record });
-      const id = res?.data?.id;
-      commit('pushRecord', { title, record, id });
+      const { recordId, sectorId } = res?.data;
+      record.id = recordId;
+      commit('pushRecord', { title, record, sectorId });
     },
 
     async updateRecord({ }: any, record: IRecord) {
