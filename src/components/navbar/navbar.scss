@@ -30,11 +30,16 @@
     font-size: 1.2em;
     cursor: pointer;
     position: relative;
+    overflow-y: visible;
 
     &_input {
       & input[type=text] {
         opacity: 0;
         cursor: pointer;
+        padding: 0;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        overflow-y: visible;
       }
 
       & > .ve-dp-input > svg {
