@@ -10,7 +10,7 @@
       />
     </div>
     <div class="band__container">
-      <draggable v-model="bandSectors">
+      <component v-bind:is="isMobile ? 'div' : 'draggable'" v-model="bandSectors">
         <sector
           v-for="sector in sectors" :key="sector.id"
           v-bind:sector="sector"
@@ -18,7 +18,7 @@
           @openMenu="makeRecordActive($event)"
           ref="sectors"
         />
-      </draggable>
+      </component>
     </div>
   </div>
 </template>
@@ -30,6 +30,7 @@ import 'vue-simple-suggest/dist/styles.css';
 import Sector from '../sector/Sector.vue';
 import draggable from 'vuedraggable';
 import VueSimpleSuggest from 'vue-simple-suggest';
+import device from 'current-device';
 import { mapGetters } from 'vuex';
 import { ISector } from '@/core/interfaces/sector.interface';
 import { IRecord } from '@/core/interfaces/record.interface';
@@ -43,6 +44,7 @@ export default {
   },
   computed: {
     ...mapGetters(['allRecords', 'sectors']),
+
     bandSectors: {
       get(): ISector[] {
         const band = this as unknown as IBand;
@@ -53,9 +55,14 @@ export default {
         band.$store.dispatch('updateSectors', sectors);
       },
     },
+
     recordsText(): string[] {
       const band = this as unknown as IBand;
       return band.allRecords.map((record) => record?.text);
+    },
+
+    isMobile(): boolean {
+      return device.mobile();
     },
   },
   methods: {

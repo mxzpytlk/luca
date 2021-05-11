@@ -16,7 +16,7 @@
       <div class="plan__error luca-error">
         {{ errText | locale }}
       </div>
-      <draggable>
+      <component v-bind:is="isMobile ? 'div' : 'draggable'">
         <div
           v-for="record in records"
           :key="record.id" class="plan__record"
@@ -33,7 +33,7 @@
             <font-awesome-icon icon="clock" class="plan__record_icon" v-else/>
           </div>
         </div>
-      </draggable>
+      </component>
     </div>
   </div>
 </template>
@@ -43,6 +43,7 @@ import { mapActions, mapGetters } from 'vuex';
 import './day-plan.scss';
 import KProgress from 'k-progress';
 import draggable from 'vuedraggable';
+import device from 'current-device';
 import { IDayPlan } from './day-plan.interface';
 import { IRecord } from '@/core/interfaces/record.interface';
 
@@ -77,6 +78,10 @@ export default {
     isAnyRecordSelected() {
       const dayPlan = this as unknown as IDayPlan;
       return dayPlan.selectedRecords.length > 0;
+    },
+
+    isMobile(): boolean {
+      return device.mobile();
     },
   },
   methods: {
