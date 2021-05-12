@@ -1,7 +1,13 @@
 <template>
   <div class="container">
     <form class="form" @submit.prevent="addRecord">
-      <input type="text" name="title" class="luca-input" :placeholder="'enter_sector_title' | locale" v-model="title" required>
+      <vue-simple-suggest
+        :placeholder="'enter_sector_title' | locale"
+        v-model="title"
+        :list="sectorsTitle"
+        :filter-by-query="true"
+        required
+      />
       <div class="form__time">
         <label for="plan">
           {{ 'planed_time' | locale }}
@@ -32,7 +38,9 @@
 <script lang="ts">
 import './new-note.scss';
 import VueyeDatepicker from 'vueye-datepicker';
+import VueSimpleSuggest from 'vue-simple-suggest';
 import { INewNote } from './new-note.interface';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -42,6 +50,13 @@ export default {
       planedTime: 0,
       errText: '',
     };
+  },
+  computed: {
+    ...mapGetters(['sectors']),
+    sectorsTitle(): string[] {
+      const newNotePage = this as unknown as INewNote;
+      return newNotePage.sectors.map((sector) => sector.title);
+    },
   },
   methods: {
 
@@ -68,6 +83,6 @@ export default {
     },
 
   },
-  components: { VueyeDatepicker },
+  components: { VueyeDatepicker, VueSimpleSuggest },
 };
 </script>

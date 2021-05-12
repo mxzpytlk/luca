@@ -146,6 +146,10 @@ button {
   outline: none !important;
   user-select: none;
   touch-action: manipulation;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  opacity: 1;
 
   &:focus {
     outline: none !important;
