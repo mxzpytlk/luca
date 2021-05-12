@@ -31,6 +31,7 @@
             <k-progress :percent="getPercent(record)" :line-height="7" color="red" bg-color="green" class="plan__record_progress"/>
             <font-awesome-icon v-if="isStoped(record)" icon="pause-circle" class="plan__record_icon"/>
             <font-awesome-icon icon="clock" class="plan__record_icon" v-else/>
+            <span>{{ 'left' | locale }}: {{ leftTime(record) | time}}</span>
           </div>
         </div>
       </component>
@@ -83,6 +84,7 @@ export default {
     isMobile(): boolean {
       return device.mobile();
     },
+
   },
   methods: {
     ...mapActions(['copyPreviousDayPlan']),
@@ -132,6 +134,10 @@ export default {
       }
 
       await dayPlan.$store.dispatch('updateRecord', record);
+    },
+
+    leftTime(record: IRecord): number {
+      return record.executionPlanTime - record.executionTime;
     },
   },
   components: { KProgress, draggable },

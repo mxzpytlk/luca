@@ -5,6 +5,7 @@
   "delete_sector": "Delete sector",
   "acount": "Acount",
   "enter_record_text": "Write record text",
+  "enter_sector_title": "Write sector title",
   "enter_record": "Write record",
   "planed_time": "Planed time",
   "delete": "Delete",
@@ -22,5 +23,8 @@
   "delete_from_today": "Delete from plan",
   "not_today": "Can't start coutdown on task which is not today",
   "executionPlanTime_empty": "You must indicate the planned time",
-  "enter_sector_record": "Write sector or record title"
+  "enter_sector_record": "Write sector or record title",
+  "left": "Left",
+  "h": "h",
+  "m": "m"
 }
