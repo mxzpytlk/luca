@@ -19,14 +19,14 @@ export default {
         for (let i = 0; i < sector.records.length; i++) {
           const record = sector.records[i];
           if (record.executionDate) {
-            const date = dateFromStringWithoutTimeZone(record.executionDate as unknown as string);
+            const date = dateFromStringWithoutTimeZone(record.executionDate);
             record.executionDate = new Date(date);
           }
           record.executionIntervals.map((int) => {
-            const start = dateFromStringWithoutTimeZone(int.start as unknown as string);
+            const start = dateFromStringWithoutTimeZone(int.start);
             int.start = new Date(start);
             if (int.end) {
-              const end = dateFromStringWithoutTimeZone(int.end as unknown as string);
+              const end = dateFromStringWithoutTimeZone(int.end);
               int.end = new Date(end);
             }
             return int;

@@ -8,7 +8,8 @@ export function hoursToMilisecrond(h: number) {
   return h * 60 * 60 * 1e3;
 }
 
-export function dateFromStringWithoutTimeZone(str: string): Date {
+export function dateFromStringWithoutTimeZone(date: string | Date): Date {
+  const str = date.toString();
   if (str?.slice(-1).toLowerCase() === 'z') {
     return new Date(str.slice(0, -1));
   }
