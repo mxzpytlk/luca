@@ -7,3 +7,10 @@ export function hoursBetweenDates(start: Date, end: Date): number {
 export function hoursToMilisecrond(h: number) {
   return h * 60 * 60 * 1e3;
 }
+
+export function dateFromStringWithoutTimeZone(str: string): Date {
+  if (str?.slice(-1).toLowerCase() === 'z') {
+    return new Date(str.slice(0, -1));
+  }
+  return new Date(str);
+}

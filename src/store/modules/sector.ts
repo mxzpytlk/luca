@@ -3,6 +3,7 @@ import { IRecord } from '@/core/interfaces/record.interface';
 import { ISector } from '@/core/interfaces/sector.interface';
 import { Record } from '@/core/models/records';
 import { get, remove } from '@/core/utills/api.utills';
+import { dateFromStringWithoutTimeZone } from '@/core/utills/date-time.utills';
 
 export default {
   state: {
@@ -18,12 +19,15 @@ export default {
         for (let i = 0; i < sector.records.length; i++) {
           const record = sector.records[i];
           if (record.executionDate) {
-            record.executionDate = new Date(record.executionDate);
+            const date = dateFromStringWithoutTimeZone(record.executionDate as unknown as string);
+            record.executionDate = new Date(date);
           }
           record.executionIntervals.map((int) => {
-            int.start = new Date(int.start);
+            const start = dateFromStringWithoutTimeZone(int.start as unknown as string);
+            int.start = new Date(start);
             if (int.end) {
-              int.end = new Date(int.end);
+              const end = dateFromStringWithoutTimeZone(int.end as unknown as string);
+              int.end = new Date(end);
             }
             return int;
           });
