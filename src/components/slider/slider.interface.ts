@@ -1,5 +1,7 @@
+import { IPoint } from '@/core/utills/geometry.utills';
+
 export interface ISlider {
-  startPoint: number;
+  startPoint: IPoint;
   position: number;
   maxCount: number;
 }
