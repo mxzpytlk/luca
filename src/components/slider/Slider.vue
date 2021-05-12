@@ -31,9 +31,14 @@ export default {
     swipeEnd(event: TouchEvent) {
       const slider = this as unknown as ISlider;
       const endPoint = event.changedTouches[0].clientX;
-      if (slider.startPoint > endPoint && slider.position < slider.maxCount - 1) {
+      const startPoint = slider.startPoint;
+      if (Math.abs(startPoint - endPoint) < 40) {
+        return;
+      }
+
+      if (startPoint > endPoint && slider.position < slider.maxCount - 1) {
         slider.position += 1;
-      } else if (slider.startPoint < endPoint && slider.position > 0) {
+      } else if (startPoint < endPoint && slider.position > 0) {
         slider.position -= 1;
       }
     },
