@@ -38,14 +38,8 @@ library.add(
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;
-
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount('#app');
-
 Vue.prototype.$http = Axios;
+
 const token = localStorage.getItem(LocalStorageKey.TOKEN);
 if (token) {
   Vue.prototype.$http.defaults.headers.common.Authorization = token;
@@ -56,3 +50,10 @@ Vue.use(VueComp);
 Vue.filter('date', filterDate);
 Vue.filter('time', filterTime);
 Vue.filter('locale', localeFilter);
+
+
+new Vue({
+  router,
+  store,
+  render: (h) => h(App),
+}).$mount('#app');

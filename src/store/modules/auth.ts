@@ -2,6 +2,7 @@ import { ApiHref } from '@/core/enums/api.enum';
 import { LocalStorageKey } from '@/core/enums/local-storage-key';
 import { IAuthData } from '@/core/interfaces/auth-data.interface';
 import { post } from '@/core/utills/api.utills';
+import axios from 'axios';
 
 export default {
   state: {
@@ -46,6 +47,7 @@ export default {
         localStorage.setItem(LocalStorageKey.TOKEN, token);
         localStorage.setItem(LocalStorageKey.NAME, name);
         localStorage.setItem(LocalStorageKey.USER_ID, id);
+        axios.defaults.headers.common.Authorization = token;
         commit('auth_success', { token, name, id });
       } else {
         throw new Error('Login or password is incorrect');
@@ -65,6 +67,7 @@ export default {
     async logout({ commit }: any) {
       localStorage.removeItem(LocalStorageKey.TOKEN);
       localStorage.removeItem(LocalStorageKey.NAME);
+      delete axios.defaults.headers.common.Authorization;
       commit('logout');
     },
   },
