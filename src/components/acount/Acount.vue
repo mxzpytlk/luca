@@ -81,7 +81,6 @@ export default {
       const acount = this as unknown as IAcount;
       if (confirm('Are you sure you want to leave your acount')) {
         await acount.$store.dispatch('logout');
-        acount.$router.push(RouterPath.AUTH);
       }
     },
 

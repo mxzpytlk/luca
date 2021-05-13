@@ -1,7 +1,9 @@
 import { ApiHref } from '@/core/enums/api.enum';
 import { LocalStorageKey } from '@/core/enums/local-storage-key';
+import { RouterPath } from '@/core/enums/router-path';
 import { IAuthData } from '@/core/interfaces/auth-data.interface';
 import { post } from '@/core/utills/api.utills';
+import router from '@/router';
 import axios from 'axios';
 
 export default {
@@ -69,6 +71,7 @@ export default {
       localStorage.removeItem(LocalStorageKey.NAME);
       delete axios.defaults.headers.common.Authorization;
       commit('logout');
+      await router.push(RouterPath.AUTH);
     },
   },
 };

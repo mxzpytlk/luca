@@ -1,7 +1,6 @@
 import axios from 'axios';
 import config from '../../assets/config.json';
 import { ApiHref } from '../enums/api.enum';
-import auth from '../../store/modules/auth';
 
 function getUrlByHref(href: ApiHref): string {
   return config.url + href;
@@ -26,7 +25,6 @@ async function makeRequest(href: ApiHref, method: any, data?: any): Promise<any>
       url: getUrlByHref(href),
       params: {
         ...data,
-        userId: auth.state.userId,
       },
     });
   } catch (e) {

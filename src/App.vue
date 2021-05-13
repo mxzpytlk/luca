@@ -18,8 +18,8 @@ import Auth from './views/auth/Auth';
 export default {
   created() {
     this.$http.interceptors.response.use(undefined, async (err) => {
-      if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
-        this.$store.dispatch('logout');
+      if (err.response.status === 401) {
+        await this.$store.dispatch('logout');
       }
       throw err;
     });
