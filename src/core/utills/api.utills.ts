@@ -3,7 +3,7 @@ import config from '../../assets/config.json';
 import { ApiHref } from '../enums/api.enum';
 
 function getUrlByHref(href: ApiHref): string {
-  return config.url + href;
+  return (config?.url || '') + href;
 }
 
 export async function post(href: ApiHref, data?: any): Promise<any> {
